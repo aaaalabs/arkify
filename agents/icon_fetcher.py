@@ -132,8 +132,9 @@ class IconFetcher:
         fill="white" text-anchor="middle">{initials}</text>
 </svg>'''
 
-        # Save fallback
+        # Save fallback (ensure parent directory exists)
         cache_path = self.cache_dir / f"{slug}_fallback.svg"
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
         cache_path.write_text(svg_content)
 
         return {

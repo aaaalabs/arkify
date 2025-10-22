@@ -223,6 +223,24 @@ Design for: **Scroll Stop → Curiosity → Save → Share**
 - **No Fallbacks**: Fail fast with real errors (per global CLAUDE.md guidelines)
 - **Story-Driven**: Every technical decision serves the narrative
 
+## CRITICAL: NO MOCK DATA POLICY
+
+**Arkify builds Arkify.** This project documents its own development journey.
+
+- ❌ **NEVER use fictional example projects** (TaskFlow AI, TodoApp, etc.)
+- ✅ **ONLY use real data from the Arkify project itself**
+- ✅ All YAML files must contain factual data about Arkify's actual development
+- ✅ Hours worked, costs incurred, challenges faced - all must be REAL
+- ✅ The project showcases itself by visualizing its own creation story
+
+**Example Data Sources:**
+- Git commit history (actual hours/days worked)
+- Real tech stack used (Python, PIL, Claude API, etc.)
+- Actual challenges encountered during development
+- Real learnings from building the system
+
+This creates authentic, credible project breakdowns that demonstrate Arkify's capabilities using its own real development data.
+
 ## Repository Structure (Planned)
 
 ```
