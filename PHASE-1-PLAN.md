@@ -14,20 +14,37 @@ Phase 0 shows what you built. Phase 1 shows **why it matters** and **how it real
 
 ---
 
+## Design Philosophy
+
+**"Phase 1 must not look ugly"** - Based on LinkedIn influencer research and 577k+ post analysis.
+
+**See [PHASE-1-DESIGN-SYSTEM.md](PHASE-1-DESIGN-SYSTEM.md) for complete design specifications.**
+
+Key principles from research:
+- **LinkedIn Carousels: 45.85% engagement rate** (highest format)
+- Bold typography (40-60pt headlines) stops scrolls
+- High-contrast colors (neon, metallics) perform 3x better
+- 10-30 words per panel maximum
+- Generous whitespace (25%+ per panel)
+- Professional = Portfolio-worthy quality
+
+---
+
 ## Goals
 
 ### Primary Objectives
 1. **3x3 Grid Layout** - More space for narrative depth (900x1200px)
 2. **Story Arc Designer** - Optimal panel ordering for engagement
 3. **Graph Generator** - Visual comparisons (Expected vs Actual)
-4. **Template System** - Multiple layout variations
+4. **Template System** - Multiple layout variations with 4 professional color palettes
 
 ### Success Metrics
 - ✅ Generation time: <2 minutes (vs <30s in Phase 0)
 - ✅ Save rate: >15% (LinkedIn benchmark)
 - ✅ First community template contribution
 - ✅ First external PR merged
-- ✅ Professional quality (portfolio-worthy)
+- ✅ **Professional quality: "I would use this in my portfolio" >60%**
+- ✅ **Scroll-stop test: Visible at thumbnail size**
 
 ---
 
@@ -370,7 +387,8 @@ arkify/
 │   ├── test_story_arc_designer.py # NEW
 │   └── test_graph_generator.py    # NEW
 │
-└── PHASE-1-PLAN.md                # THIS FILE
+├── PHASE-1-PLAN.md                # NEW - Implementation plan
+└── PHASE-1-DESIGN-SYSTEM.md       # NEW - Complete design specifications
 ```
 
 ### Modified Files
@@ -388,71 +406,36 @@ ROADMAP.md                         # UPDATED - Mark Phase 1 as in progress
 
 ## Design System
 
-### Color Palettes
+**Complete specifications in [PHASE-1-DESIGN-SYSTEM.md](PHASE-1-DESIGN-SYSTEM.md)**
 
-**Classic (Default):**
-```python
-COLORS = {
-    "primary": "#7C3AED",      # Purple
-    "secondary": "#EC4899",    # Pink
-    "background": "#1F2937",   # Dark gray
-    "text": "#F9FAFB",         # Off-white
-    "accent": "#10B981",       # Green
-    "expected": "#6B7280",     # Gray (dimmed)
-    "reality": "#7C3AED"       # Purple (vivid)
-}
-```
+This document contains:
+- **4 Professional Color Palettes** (Future Dust, Neon Pop, Metallic Future, Minimal Brutalism)
+- **Typography System** (40-60pt headlines, font pairing strategies)
+- **Layout Specifications** (900x1200px, 3x3 grid, whitespace rules)
+- **Panel-by-Panel Design Specs** (with layouts and examples)
+- **Accessibility Standards** (WCAG AA compliance)
+- **Testing Checklists** (scroll test, 3-second test, share test)
 
-**Modern (Bold):**
-```python
-COLORS = {
-    "primary": "#F59E0B",      # Orange
-    "secondary": "#3B82F6",    # Blue
-    "background": "#0F172A",   # Deep blue-black
-    "text": "#FFFFFF",         # White
-    "accent": "#EF4444",       # Red
-    "expected": "#475569",     # Slate gray
-    "reality": "#F59E0B"       # Orange (vivid)
-}
-```
+### Quick Reference
 
-**Minimal (Clean):**
-```python
-COLORS = {
-    "primary": "#000000",      # Black
-    "secondary": "#3B82F6",    # Blue
-    "background": "#FFFFFF",   # White
-    "text": "#111827",         # Near-black
-    "accent": "#3B82F6",       # Blue
-    "expected": "#D1D5DB",     # Light gray
-    "reality": "#000000"       # Black (vivid)
-}
-```
+**Color Palettes (4 options):**
+1. **"Future Dust"** (Default) - Modern, sophisticated, WGSN Color of the Year 2025
+2. **"Neon Pop"** - Bold, scroll-stopping, high engagement
+3. **"Metallic Future"** - Premium, professional, enterprise-ready
+4. **"Minimal Brutalism"** - Clean, designer-favorite, Dribbble-approved
 
-### Typography
+**Typography:**
+- Headlines: 40-60pt (bold/black weight)
+- Body text: 24-36pt (medium weight)
+- Labels: 16-20pt (regular weight)
+- Max 2 font families per design
+- Recommended: Inter + Montserrat
 
-**Font Sizes (3 max per panel):**
-- Header: 48px (project name), 24px (tagline), 18px (stats)
-- Body panels: 36px (title), 24px (main text), 16px (labels)
-- Learning panel: 28px (insight), 16px (CTA)
-
-**Font Weights:**
-- Bold: Titles, numbers
-- Regular: Body text
-- Light: Labels, captions
-
-### Spacing
-
-**Grid System:**
-- Canvas: 900x1200px
-- Panel: 300x400px (standard)
-- Padding: 20px inside each panel
-- Gap: 0px (panels touch)
-
-**Internal Spacing:**
-- Title margin-bottom: 16px
-- Paragraph spacing: 12px
-- Element spacing: 8px
+**Layout:**
+- Canvas: 900x1200px at 300 DPI
+- Panels: 300x400px (Header spans 3 columns = 900x400px)
+- Whitespace: Minimum 25% per panel
+- Content: Max 10-30 words per panel
 
 ---
 
