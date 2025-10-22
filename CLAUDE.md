@@ -608,6 +608,170 @@ Falls ein Gate failed → iterieren bis alle grün sind.
 # Alle 6 sollten sichtbar sein
 ```
 
+## Git-Based Development Metrics (Mandatory)
+
+### Philosophy: Git is the Single Source of Truth
+
+**CRITICAL RULE:** Development time and all KPIs must be extracted from Git commit history, not manual estimates.
+
+**Why?**
+- Manual estimates are inherently inaccurate (Phase 0: estimated 12h, actual 2.6h!)
+- Git commits provide authentic, verifiable data
+- Transparency and authenticity are core values
+- Creates trust with community and stakeholders
+
+### The Git KPI Extraction System
+
+Located in: `utils/git_kpis.py`
+
+```python
+from utils.git_kpis import GitKPIExtractor
+
+# Extract all Git-based metrics
+extractor = GitKPIExtractor()
+kpis = extractor.get_phase_kpis()
+
+# Use in YAML breakdowns:
+# hours: {kpis['development']['total_hours']}  # Git-measured
+# commits: {kpis['commits']['total']}
+# files_changed: {kpis['code']['files_changed']}
+# lines_of_code: {kpis['code']['net_lines']}
+```
+
+### Available Metrics
+
+#### Timeline Metrics
+- `get_first_commit_time()` - Start of development
+- `get_latest_commit_time()` - Most recent commit
+- `calculate_development_hours()` - Actual hours between first/last commit
+
+#### Code Metrics
+- `get_total_commits()` - Total commit count
+- `get_files_changed()` - Unique files touched
+- `get_lines_added_removed()` - Lines added/removed/net
+
+#### Author Metrics
+- `get_commits_by_author()` - Commit distribution
+- `get_commit_messages()` - Recent commit history
+
+### Usage in Phase Breakdowns
+
+**Phase 0 Example:**
+```yaml
+project:
+  name: "Arkify Phase 0"
+
+  # MANDATORY: Git-measured hours
+  hours: 2.6  # Actual: First commit (07:21) to last commit (10:00) = 2.6h
+  cost: 0
+
+  # Optional: Extended Git stats
+extended:
+  git_stats:
+    total_commits: 14
+    files_changed: 59
+    lines_of_code: 12943
+    commits_per_hour: 5.4
+```
+
+### Running Git KPI Extraction
+
+```bash
+# Generate summary for terminal
+python3 utils/git_kpis.py
+
+# Output includes:
+# - Timeline (start/end dates and times)
+# - Commit count and authors
+# - File changes and line counts
+# - Recent commit messages
+```
+
+### Integration with Meta Breakdowns
+
+When creating meta breakdowns (Arkify documenting itself):
+
+1. **Extract Git KPIs first:**
+   ```bash
+   python3 utils/git_kpis.py
+   ```
+
+2. **Update YAML with real data:**
+   ```yaml
+   hours: 2.6  # From Git extraction, not estimate
+   ```
+
+3. **Generate breakdown:**
+   ```bash
+   python3 arkify.py meta/phase-X-breakdown.yaml
+   ```
+
+### Reality Check Metrics
+
+The Git KPI system provides "reality check" metrics:
+
+- **Commits per hour** - Development velocity indicator
+- **Lines per commit** - Code churn indicator
+- **Duration days** - Actual calendar time vs. development hours
+- **Author distribution** - Team collaboration patterns
+
+### Example Output
+
+```
+Phase Development Summary
+=========================
+
+📅 Timeline:
+   Start: 2025-10-22 at 07:21
+   End:   2025-10-22 at 10:00
+   Duration: 2.6 hours (0 days)
+
+💻 Commits:
+   Total commits: 14
+   Authors: Thomas (14)
+
+📝 Code Changes:
+   Files changed: 59
+   Lines added: 13,421
+   Lines removed: 478
+   Net lines: 12,943
+
+Recent Commits:
+   - claude: convert all agents to proper Claude Code format
+   - docs: add complete system overview
+   - feat: add meta-agent system
+```
+
+### Best Practices
+
+1. **Always Use Git Time** - Never hardcode manual estimates
+2. **Document Reality vs. Expectations** - Show both in YAML extended fields
+3. **Track Per-Phase** - Use Git tags for phase boundaries (v0.0.0, v0.1.0, etc.)
+4. **Transparent Metrics** - Include commits_per_hour, lines_per_commit
+5. **Update CLAUDE.md** - Document learnings from Git analysis
+
+### Edge Cases
+
+**Multiple Contributors:**
+```python
+# Get per-author stats
+kpis = extractor.get_phase_kpis()
+authors = kpis['commits']['by_author']
+# {'Thomas': 14, 'Claude': 3}
+```
+
+**Phase Boundaries:**
+```python
+# Extract KPIs for specific phase (using Git tags)
+kpis = extractor.get_phase_kpis(phase_tag='v0.1.0')
+```
+
+**Continuous Development:**
+```python
+# Calculate hours assumes continuous work between commits
+# For more accurate tracking, consider commit frequency analysis
+```
+
 ## License
 
 Planned: MIT License (open source)

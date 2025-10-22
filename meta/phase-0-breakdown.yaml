@@ -6,8 +6,8 @@ project:
   name: "Arkify Phase 0"
   tagline: "2x2 MVP - Proof of concept that shipped in one session"
 
-  # Phase 0: Required fields
-  hours: 12
+  # Phase 0: Required fields (GIT-MEASURED)
+  hours: 2.6  # Actual: First commit (07:21) to last commit (10:00) = 2.6h
   cost: 0  # Open source!
 
   tech_stack:
