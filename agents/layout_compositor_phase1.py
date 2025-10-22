@@ -102,6 +102,13 @@ class LayoutCompositorPhase1:
                 y = row * self.panel_size[1]
                 panel_renderers[panel_id](canvas, draw, layout_data, x, y)
 
+        # Geographic context (subtle, bottom-right corner)
+        geo_text = "📍 Tyrol/Innsbruck • Oct 22, 2025 • 8h"
+        geo_x = self.canvas_size[0] - 320  # Right-aligned with margin
+        geo_y = self.canvas_size[1] - 24   # 24px from bottom
+        self._draw_text(draw, geo_text, (geo_x, geo_y), self.fonts['tiny'],
+                       self.colors['text_dim'], align='left')
+
         # Save output
         output_dir = Path('output')
         output_dir.mkdir(exist_ok=True)
@@ -380,6 +387,13 @@ class LayoutCompositorPhase1:
             timeline_y = y + 72  # 72 = 9*8px (was 70 - fixed!)
             self._draw_wrapped_text(draw, timeline, x + 16, timeline_y, w - 32,  # 16px margins
                                    self.fonts['medium'], self.colors['electric_green'])
+
+            # Mic drop moment (subtle, in parentheses)
+            timeline_note = reality.get('timeline_note')
+            if timeline_note:
+                note_y = timeline_y + 48  # 48 = 6*8px below timeline
+                self._draw_text(draw, f"({timeline_note})", (x + w//2, note_y),
+                               self.fonts['tiny'], self.colors['text_dim'], align='center')
 
         # Cost - 144px from top (18*8px)
         cost = reality.get('cost', 0)
