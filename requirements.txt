@@ -1,12 +1,14 @@
-# Arkify - Phase 0 Requirements
-# Ultra-minimal MVP dependencies
+# Arkify - Requirements
+# Phase 0 + Phase 1 dependencies
 
-# Core
+# Core (Phase 0)
 pyyaml==6.0.1
 pillow==10.2.0
 requests==2.31.0
 
+# Phase 1: Graph generation
+matplotlib==3.8.0
+
 # Future phases (commented out for now)
 # anthropic==0.18.0  # Phase 4: AI Intelligence
 # mermaid==0.1.0     # Phase 2: Diagram generation
-# matplotlib==3.8.0  # Phase 1: Graph generation

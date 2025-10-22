@@ -1,0 +1,46 @@
+project:
+  # ===================================================
+  # Phase 0 Fields (Required)
+  # ===================================================
+  name: "TaskFlow AI"
+  hours: 87
+  cost: 156
+  tech_stack:
+    - "Cursor"
+    - "Claude"
+    - "Next.js"
+    - "Vercel"
+  learning: "Ship fast, iterate later. Perfect is the enemy of done. Your first version will be ugly and that's okay."
+
+  # ===================================================
+  # Phase 1 Fields (New!)
+  # ===================================================
+  tagline: "AI-powered task manager that actually understands context"
+
+  results:
+    users: 342
+    signups: 89
+    revenue: 0
+    week_one: 23
+    week_four: 342
+
+  expectations:
+    timeline: "2-3 days over a weekend"
+    cost: 40
+    challenges:
+      - "Basic auth setup"
+      - "Clean UI design"
+      - "Deploy to Vercel"
+
+  reality:
+    timeline: "12 days spread over 3 weeks"
+    cost: 156
+    challenges:
+      - "Claude API integration was tricky"
+      - "Context management ate 40% of time"
+      - "Rewrote UI 3 times"
+      - "Edge cases everywhere"
+    surprises:
+      - "Users loved it despite bugs"
+      - "Cursor + Claude combo is magical"
+      - "Dark mode took 10 minutes with Tailwind"
