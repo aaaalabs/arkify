@@ -1,0 +1,33 @@
+# Example Project: AI Todo App
+# A smart task prioritization tool for indie hackers
+
+project:
+  name: "AI Todo App"
+  tagline: "Smart task prioritization for DACH indie hackers"
+
+  # Phase 0: Minimal required fields
+  hours: 29
+  cost: 37
+
+  tech_stack:
+    - "Cursor"
+    - "Claude"
+    - "Next.js"
+    - "Supabase"
+
+  learning: "AI can't do CSS - but perfect for business logic. Use UI frameworks!"
+
+# Phase 1+ Extended fields (optional for now)
+extended:
+  results:
+    users: 127
+    signups: 89
+
+  expectations:
+    timeline: "2-3 days"
+    challenges: ["Supabase auth", "UI design"]
+
+  reality:
+    timeline: "5 days + 2 debug days"
+    challenges: ["AI hallucinations", "Supabase RLS", "CSS responsiveness"]
+    surprises: ["AI struggled with edge cases", "Styling took 3x longer than coding"]

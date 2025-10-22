@@ -1,0 +1,33 @@
+# Example Project: Weekend Hack
+# A tiny tool built in 48 hours
+
+project:
+  name: "GitMood"
+  tagline: "Analyze your GitHub commit sentiment"
+
+  # Phase 0: Minimal required fields
+  hours: 16
+  cost: 8
+
+  tech_stack:
+    - "Python"
+    - "FastAPI"
+    - "GitHub API"
+    - "Vercel"
+
+  learning: "Ship fast, iterate later - got 200 users before adding ANY features!"
+
+# Phase 1+ Extended fields
+extended:
+  results:
+    users: 245
+    signups: 178
+
+  expectations:
+    timeline: "Weekend project"
+    challenges: ["GitHub API", "Sentiment analysis"]
+
+  reality:
+    timeline: "16 hours total"
+    challenges: ["Rate limiting", "Data visualization"]
+    surprises: ["People loved the simplicity", "Feature requests poured in immediately"]

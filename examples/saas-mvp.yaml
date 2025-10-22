@@ -1,0 +1,34 @@
+# Example Project: SaaS Landing Page Builder
+# Drag-and-drop builder for non-technical founders
+
+project:
+  name: "PageCraft"
+  tagline: "Beautiful landing pages in 5 minutes"
+
+  # Phase 0: Minimal required fields
+  hours: 48
+  cost: 145
+
+  tech_stack:
+    - "React"
+    - "TypeScript"
+    - "Tailwind"
+    - "Stripe"
+
+  learning: "Stripe integration took 40% of total time - start with payments on day 1!"
+
+# Phase 1+ Extended fields
+extended:
+  results:
+    users: 89
+    signups: 42
+    revenue: 290
+
+  expectations:
+    timeline: "1 week"
+    challenges: ["Payment integration", "Template system"]
+
+  reality:
+    timeline: "12 days"
+    challenges: ["Stripe webhooks debugging", "Mobile responsiveness", "SEO optimization"]
+    surprises: ["Payment testing took longer than building", "First sale came within 24h"]
