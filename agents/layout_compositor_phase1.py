@@ -127,12 +127,13 @@ class LayoutCompositorPhase1:
         self._draw_text(draw, name, (w//2, name_y), self.fonts['huge'],
                        self.colors['cosmic_white'], align='center')
 
-        # Tagline (if available) - 72px spacing (9*8px)
+        # Tagline (if available) - 72px spacing (9*8px) - WITH LINE BREAKS!
         tagline = data.get('tagline', '')
         if tagline:
             tagline_y = name_y + 72  # 72 = 9*8px (was 70 - fixed!)
-            self._draw_text(draw, tagline, (w//2, tagline_y), self.fonts['medium'],
-                           self.colors['text_dim'], align='center')
+            # Use wrapped text to prevent cutoff
+            self._draw_wrapped_text(draw, tagline, x + 100, tagline_y, w - 200,
+                                   self.fonts['medium'], self.colors['text_dim'])
 
         # Key stats (hours • cost • users) - 80px from bottom (10*8px)
         kpis = data.get('kpis', {})
@@ -425,17 +426,19 @@ class LayoutCompositorPhase1:
         self._draw_text(draw, "LEARNED", (x + w//2, title_y), self.fonts['small_bold'],
                        self.colors['cosmic_white'], align='center')
 
-        # Learning text - 64px from top (8*8px) - compact wrapping for MAX density
+        # Learning text - 64px from top (8*8px) - CALCULATE HEIGHT to avoid overlap!
         learning = data.get('learning', '')
         learning_y = y + 64  # 64 = 8*8px (was 62 - fixed!)
+        learning_lines = self._get_wrapped_lines(draw, learning, w - 32, self.fonts['small'])
+        learning_height = len(learning_lines) * 24  # 24px line height
         self._draw_wrapped_text(draw, learning, x + 16, learning_y, w - 32,
                                self.fonts['small'], self.colors['cosmic_white'])
 
-        # Reality Challenges - Apple Iteration 5: NO LABEL (simplicity!)
+        # Reality Challenges - START AFTER learning text ends (NO OVERLAP!)
         reality = data.get('reality', {})
         challenges = reality.get('challenges', [])
         if challenges:
-            chall_y = y + 208  # 208 = 26*8px (tighter - removed label!)
+            chall_y = learning_y + learning_height + 24  # 24px gap after learning
 
             # Apple precision: calculate EXACT fit (8px grid)
             available_height = h - (chall_y - y) - 16  # 16px bottom margin (2*8px)
@@ -469,9 +472,8 @@ class LayoutCompositorPhase1:
         except:
             draw.text(pos, text, fill=color)
 
-    def _draw_wrapped_text(self, draw: ImageDraw, text: str, x: int, y: int,
-                          max_width: int, font, color: str):
-        """Draw text with word wrapping."""
+    def _get_wrapped_lines(self, draw: ImageDraw, text: str, max_width: int, font) -> list:
+        """Calculate wrapped lines without drawing (for height calculation)."""
         words = text.split()
         lines = []
         current_line = []
@@ -498,8 +500,15 @@ class LayoutCompositorPhase1:
         if current_line:
             lines.append(' '.join(current_line))
 
-        # Draw lines
-        line_height = 30
+        return lines
+
+    def _draw_wrapped_text(self, draw: ImageDraw, text: str, x: int, y: int,
+                          max_width: int, font, color: str):
+        """Draw text with word wrapping."""
+        lines = self._get_wrapped_lines(draw, text, max_width, font)
+
+        # Draw lines - use 8px grid aligned line height (24 = 3*8px)
+        line_height = 24  # Tighter for value-density
         for i, line in enumerate(lines):
             draw.text((x, y + i * line_height), line, font=font, fill=color)
 
