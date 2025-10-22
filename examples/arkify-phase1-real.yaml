@@ -7,9 +7,9 @@ project:
   cost: 0   # Open source project, no direct costs yet
   tech_stack:
     - "Python"
-    - "PIL/Pillow"
-    - "Claude Code"
-    - "Git"
+    - "Anthropic"  # Claude Code (uses Anthropic icon)
+    - "GitHub"     # Git hosting + version control
+    - "FastAPI"    # Python web framework (for future MCP servers)
   learning: "Iteration beats perfection. 5 Apple-quality iterations (overflows → contrast → density → alignment → simplicity) transformed output from barely readable to pixel-perfect. Each iteration 2x better."
 
   # ===================================================
