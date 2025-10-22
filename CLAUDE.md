@@ -266,6 +266,221 @@ arkify/
 7. **Accessibility**: WCAG compliance required (color contrast >4.5:1, alt text, reduced motion support)
 8. **Platform Optimization**: LinkedIn (5MB GIF limit), Twitter (15MB limit), Instagram support planned for v2
 
+## Claude Code Project Agents - Effiziente Nutzung
+
+Dieses Projekt hat 6 spezialisierte Claude Code Agents in `.claude/agents/` die für maximale Entwicklungseffizienz genutzt werden sollten.
+
+### Die 6 Agents
+
+1. **architecture-designer** - Plant Code-Struktur und technische Spezifikationen
+2. **implementation-agent** - Schreibt produktionsreifen Python Code
+3. **testing-agent** - Erstellt umfassende pytest Tests
+4. **documentation-agent** - Pflegt Dokumentation und Beispiele
+5. **qa-agent** - Prüft Produktionsqualität (verwendet Opus Model!)
+6. **breakdown-generator** - Erstellt Meta-Breakdowns (Arkify dokumentiert sich selbst!)
+
+### Wann welchen Agent nutzen?
+
+#### Phase Planning (STARTE HIER)
+```
+Use the architecture-designer agent to plan Phase 1 features from ROADMAP.md
+```
+**Output:** Detaillierter Architecture Plan als YAML mit:
+- Neue Agents die erstellt werden müssen
+- Bestehende Files die modifiziert werden
+- Data Structures und Interfaces
+- Dependencies und Build Order
+
+#### Implementation (NACH Architecture Plan)
+```
+Use the implementation-agent to implement the architecture plan
+```
+**Output:** Produktionsreifer Python Code mit:
+- Type hints auf allen Funktionen
+- Google-style docstrings
+- Fail-fast error handling (keine silent fallbacks!)
+- PEP 8 compliance
+
+#### Testing (PARALLEL zu Implementation möglich)
+```
+Use the testing-agent to create tests for the Story Arc Designer agent
+```
+**Output:** Umfassende Test Suite mit:
+- Unit tests (individual agent methods)
+- Integration tests (agent interactions)
+- Visual regression tests (PNG comparison)
+- Backward compatibility tests
+
+#### Documentation (NACH Implementation)
+```
+Use the documentation-agent to update docs for Phase 1 features
+```
+**Output:** Aktuelle Dokumentation:
+- README mit neuen Features
+- CHANGELOG (Keep a Changelog Format)
+- Neue YAML Beispiele die funktionieren
+- Migration Guides bei Breaking Changes
+
+#### Quality Assurance (VOR Phase Completion)
+```
+Use the qa-agent to review Phase 1 quality and create QA report
+```
+**Output:** Umfassender QA Report mit:
+- Code Quality Review (PEP 8, Types, Docstrings)
+- Backward Compatibility Check
+- Visual Quality Assessment
+- Story Coherence Validation
+- Performance Benchmarks
+- Human Validation Questions
+
+#### Meta Documentation (NACH Human Approval)
+```
+Use the breakdown-generator to create Phase 1 meta breakdown
+```
+**Output:** Meta Breakdown PNG der Phase:
+- YAML File in `meta/phase-1-breakdown.yaml`
+- PNG generiert mit Arkify selbst
+- Zeigt Development Journey visuell
+- Authentische Learnings und Challenges
+
+### Optimaler Workflow für höchste Effizienz
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ PHASE KICKOFF: Lese ROADMAP.md für Phase Requirements  │
+└─────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────┐
+│ 1. ARCHITECTURE DESIGNER                                │
+│    → Erstellt detaillierten Architecture Plan           │
+│    → ~30 Min                                            │
+└─────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────┐
+│ 2. IMPLEMENTATION AGENT                                 │
+│    → Implementiert alle neuen Agents                    │
+│    → Modifiziert bestehende Files                       │
+│    → ~2-3 Stunden                                       │
+└─────────────────────────────────────────────────────────┘
+                          ↓
+         ┌────────────────┴────────────────┐
+         ↓                                  ↓
+┌──────────────────────┐      ┌──────────────────────┐
+│ 3a. TESTING AGENT    │      │ 3b. DOCUMENTATION    │
+│     → Tests          │      │     AGENT            │
+│     → ~1 Stunde      │      │     → Docs           │
+└──────────────────────┘      │     → ~45 Min        │
+                              └──────────────────────┘
+         └────────────────┬────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────┐
+│ 4. QA AGENT (Opus Model für höchste Qualität)          │
+│    → Comprehensive Quality Review                       │
+│    → Generiert QA Report mit Human Validation Questions │
+│    → ~45 Min                                            │
+└─────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────┐
+│ 🛑 HUMAN CHECKPOINT                                      │
+│    → Review QA Report                                   │
+│    → Test Generated Examples                            │
+│    → Answer Validation Questions                        │
+│    → APPROVE / REJECT / ITERATE                         │
+└─────────────────────────────────────────────────────────┘
+                          ↓ (if approved)
+┌─────────────────────────────────────────────────────────┐
+│ 5. BREAKDOWN GENERATOR                                  │
+│    → Dokumentiert Phase mit Arkify selbst               │
+│    → Beautiful Recursion!                               │
+│    → ~15 Min                                            │
+└─────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────┐
+│ ✅ PHASE COMPLETE                                        │
+│    → Git Commit & Tag (v0.X.0)                          │
+│    → Meta Breakdown PNG in meta/ directory              │
+│    → Ready for Next Phase                               │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Efficiency Tips
+
+#### Parallele Execution
+Testing Agent und Documentation Agent können parallel laufen sobald Implementation fertig ist:
+```
+# In einem Message beide Agents aufrufen:
+Use the testing-agent to create tests AND use the documentation-agent to update docs
+```
+
+#### Iterative QA
+Falls QA Agent Issues findet:
+```
+# Direkt Implementation Agent für Fixes nutzen:
+Use the implementation-agent to fix the issues from the QA report
+```
+
+#### Context Management
+Alle Agents haben Zugriff auf:
+- `ROADMAP.md` - Phase Requirements
+- `CLAUDE.md` - Projekt Guidelines (dieses File!)
+- Existing Code in `agents/` directory
+- Examples in `examples/` directory
+
+### Agent Invocation Patterns
+
+#### Einfache Invocation
+```
+Use the [agent-name] to [specific task]
+```
+
+#### Mit Context
+```
+Use the architecture-designer agent to plan Phase 1 features.
+Focus on 3x3 grid layout and story arc designer.
+Reference ROADMAP.md Phase 1 requirements.
+```
+
+#### Mit Constraints
+```
+Use the implementation-agent to create Story Arc Designer.
+Must follow existing agent patterns.
+Type hints and docstrings required.
+Maximum 200 lines of code.
+```
+
+### Quality Gates
+
+Jeder Agent ist ein Quality Gate:
+
+```
+Architecture ✓ → Implementation ✓ → Testing ✓ → Documentation ✓ → QA ✓ → Human ✓ → Meta ✓
+```
+
+Falls ein Gate failed → iterieren bis alle grün sind.
+
+### Pro Tips
+
+1. **Architecture First**: IMMER mit architecture-designer starten. Spart Zeit bei Implementation.
+
+2. **Read Before Write**: Alle Implementation/Documentation Agents lesen bestehenden Code um Patterns zu matchen.
+
+3. **QA verwendet Opus**: Der qa-agent nutzt das Opus Model für höchste Review-Qualität.
+
+4. **Backward Compatibility**: Testing Agent prüft IMMER dass Phase 0 Examples noch funktionieren.
+
+5. **Meta Documentation**: Breakdown Generator dokumentiert den Build-Prozess selbst - radikale Transparenz!
+
+6. **Human Checkpoint ist kritisch**: QA Agent generiert spezifische Fragen. Diese beantworten bevor approve!
+
+### Status Check
+
+```
+# Verfügbare Agents anzeigen:
+/agents
+
+# Alle 6 sollten sichtbar sein
+```
+
 ## License
 
 Planned: MIT License (open source)
