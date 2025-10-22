@@ -222,6 +222,112 @@ Design for: **Scroll Stop → Curiosity → Save → Share**
 - **Community-First**: Built for open source from day one
 - **No Fallbacks**: Fail fast with real errors (per global CLAUDE.md guidelines)
 - **Story-Driven**: Every technical decision serves the narrative
+- **SLC (Simple-Lovable-Complete)**: All development follows this framework
+- **First Principles Thinking**: Start with "Why?" before "How?"
+
+### Universal Development Principles
+
+**Complete framework available in:** `docs/UNIVERSAL-DEVELOPMENT-PRINCIPLES.md`
+
+Diese universellen, code-stack-agnostischen Prinzipien gelten für ALLE Entwicklung in diesem Projekt:
+
+#### **Core Framework: KISS + First Principles + SLC**
+
+**First Principles Analysis:**
+- Core Problem Definition: Welches User-Problem eliminieren wir?
+- Essential Solution: Einfachster Ansatz mit echtem Wert?
+- Enhancement vs. Creation: Kann Bestehendes erweitert werden?
+
+**KISS Principle:**
+- One-Sentence Test: Nicht in einem Satz erklärbar? → Vereinfachen
+- Concept Minimization: Jedes neue Konzept = exponentielle Komplexität
+- Enhancement Priority: IMMER erst Enhancement prüfen vor Neu-Erstellung
+
+**SLC (Simple-Lovable-Complete):**
+- **Simple**: Minimale notwendige Komplexität, keine "vielleicht später" Features
+- **Lovable**: Fail-fast mit transparenten Errors, klares Feedback
+- **Complete**: Produktionsreif, keine "coming soon" Platzhalter
+
+#### **Atomic-Molecular-Organic Pattern**
+
+- **Atomic**: Single-Responsibility Grundbausteine (z.B. Agent Base Classes)
+- **Molecular**: Funktionale Kombinationen (z.B. Agent Koordination)
+- **Organic**: Komplexe Features (z.B. Phase Orchestration)
+
+#### **The "Planner Mode" Process (Mandatory)**
+
+Vor JEDER signifikanten Änderung:
+
+1. **Deep Reflection**: Impact auf bestehende Features? Edge Cases? Skalierung?
+2. **6 Clarifying Questions**: Was könnte brechen? Wie testen? Rollback-Plan?
+3. **Step-by-Step Plan**: File Changes, neue Komponenten, Tests, Migration
+4. **Wait for Approval**: Kein Cowboy Coding
+5. **Implementation**: Plan befolgen, Tests schreiben
+6. **Post-Implementation Reflection**: Scalability, Maintainability, Performance, Error Handling
+
+#### **Red Flags to Avoid**
+
+- ❌ Files > 250 Zeilen
+- ❌ Functions > 25 Zeilen
+- ❌ Multiple Komponenten in einer Datei
+- ❌ Unbehandelte Exceptions
+- ❌ Fehlende Error Messages
+- ❌ Magic Numbers ohne Erklärung
+- ❌ Tight Coupling zwischen Komponenten
+- ❌ Fehlende Loading/Error/Empty States
+
+#### **The No Fallbacks Rule (CRITICAL)**
+
+```python
+# ❌ VERBOTEN - Silent Fallback
+try:
+    data = fetch_data()
+except:
+    data = []  # Versteckt das Problem!
+
+# ✅ KORREKT - Fail Fast
+try:
+    data = fetch_data()
+except ConnectionError as e:
+    raise RuntimeError(f"Failed to fetch: {e}") from e
+```
+
+**Warum?** Fallbacks verstecken echte Probleme, degradieren Qualität, verhindern schnelles Debugging.
+
+#### **Enhancement-First Strategy**
+
+```
+1. Kann bestehende Funktion erweitert werden? → JA: Erweitern
+2. Kann bestehende Komponente Parameter kriegen? → JA: Parameter hinzufügen
+3. Kann bestehende Architektur angepasst werden? → JA: Refactor
+4. Ist neue Komponente absolut notwendig? → LAST RESORT: Neu erstellen
+```
+
+**Regel:** Neue Komponenten sind der letzte Ausweg, nicht der erste.
+
+#### **File Organization Rules (Enforced)**
+
+- **One Component Per File**: NIEMALS mehrere Komponenten/Klassen in einem File
+- **File Size Limits**: Soft 250 Zeilen, Hard 400 Zeilen
+- **Function Size**: Max 25 Zeilen
+- **Clear Naming**: File heißt wie Komponente (`StoryArcDesigner.py` → `class StoryArcDesigner`)
+
+#### **Quality Gates Before Every Commit**
+
+```bash
+# MANDATORY
+python -m pytest tests/          # Tests müssen grün sein
+python -m flake8 agents/         # Code Quality Check
+python -m mypy agents/           # Type Check (falls mypy verwendet)
+```
+
+**Detaillierte Dokumentation:** Siehe `docs/UNIVERSAL-DEVELOPMENT-PRINCIPLES.md` für:
+- State Management Decision Tree
+- Performance Patterns
+- Error Prevention Philosophy
+- UX Principles
+- Code Review Checklist
+- Complete Implementation Examples
 
 ## Repository Structure (Planned)
 
