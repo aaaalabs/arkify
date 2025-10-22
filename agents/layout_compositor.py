@@ -149,7 +149,7 @@ class LayoutCompositor:
                            self.fonts['tiny'], self.colors['text_light'], align='center')
 
     def _draw_panel_3(self, canvas: Image, draw: ImageDraw, data: Dict):
-        """Draw Panel 3: Time/Cost Breakdown Chart."""
+        """Draw Panel 3: Project Architecture Stats."""
         x, y = 0, self.panel_size[1]
         w, h = self.panel_size
 
@@ -157,22 +157,42 @@ class LayoutCompositor:
         self._draw_panel_background(draw, x, y, w, h)
 
         # Title
-        title_y = y + 60
-        self._draw_text(draw, "Cost per Hour", (x + w//2, title_y), self.fonts['medium_bold'],
+        title_y = y + 40
+        self._draw_text(draw, "Project Structure", (x + w//2, title_y), self.fonts['medium_bold'],
                        self.colors['text'], align='center')
 
-        # Big number
-        kpis = data['kpis']
-        cost_per_hour = kpis['cost_per_hour_display']
+        # Architecture metrics (from extended.results and git_stats in YAML)
+        kpis = data.get('kpis', {})
 
-        big_num_y = y + 180
-        self._draw_text(draw, cost_per_hour, (x + w//2, big_num_y), self.fonts['huge'],
-                       self.colors['primary'], align='center')
+        # Get architecture stats with fallbacks
+        agents = kpis.get('agents_created', '?')
+        files = kpis.get('files_created', '?')
+        loc = kpis.get('lines_of_code', '?')
+        commits = kpis.get('total_commits', '?')
+        gen_time = kpis.get('generation_time', '?')
 
-        # Subtitle
-        subtitle_y = big_num_y + 80
-        self._draw_text(draw, "(cheaper than coffee ☕)", (x + w//2, subtitle_y),
-                       self.fonts['small'], self.colors['text_light'], align='center')
+        # Format lines of code with thousands separator
+        if isinstance(loc, int):
+            loc_display = f"{loc:,}"
+        else:
+            loc_display = str(loc)
+
+        # Draw metrics in a clean list
+        metrics_start_y = y + 120
+        line_height = 45
+
+        metrics = [
+            f"🤖  {agents} Agents",
+            f"📄  {files} Files",
+            f"📝  {loc_display} Lines",
+            f"📦  {commits} Commits",
+            f"⚡  {gen_time} Gen Time"
+        ]
+
+        for i, metric in enumerate(metrics):
+            metric_y = metrics_start_y + (i * line_height)
+            self._draw_text(draw, metric, (x + 60, metric_y), self.fonts['medium'],
+                           self.colors['text'], align='left')
 
     def _draw_panel_4(self, canvas: Image, draw: ImageDraw, data: Dict):
         """Draw Panel 4: Key Learning."""

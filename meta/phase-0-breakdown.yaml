@@ -18,42 +18,48 @@ project:
 
   learning: "Start ugly, ship fast. 2x2 grid proved the concept perfectly. Layout math is always harder than you think."
 
-# Extended fields documenting the real journey
-extended:
-  timeline:
-    start_date: "2025-10-22"
-    end_date: "2025-10-22"
-    duration: "One focused session"
+  # Extended fields documenting the real journey
+  extended:
+    timeline:
+      start_date: "2025-10-22"
+      end_date: "2025-10-22"
+      duration: "One focused session"
 
-  results:
-    agents_created: 4
-    files_created: 23
-    lines_of_code: 3900
-    dependencies: 3
-    examples_working: 3
-    generation_time: "3 seconds"
-    output_file_size: "30KB"
-    test_success_rate: "100%"
+    results:
+      agents_created: 4
+      files_created: 23
+      lines_of_code: 3900  # Manual estimate (Git says 12,943!)
+      dependencies: 3
+      examples_working: 3
+      generation_time: "3 seconds"
+      output_file_size: "30KB"
+      test_success_rate: "100%"
 
-  expectations:
-    timeline: "8 hours for basic MVP"
-    challenges: ["Agent coordination", "Icon rendering", "Layout generation"]
-    key_risks: ["Over-engineering", "Scope creep", "Complex dependencies"]
+    git_stats:
+      total_commits: 14
+      files_changed: 59
+      lines_of_code: 12943  # Git-measured (overrides manual estimate)
+      commits_per_hour: 5.4
 
-  reality:
-    timeline: "12 hours - layout math took longer"
-    challenges: ["Layout Compositor math took 5 hours instead of 2", "Icon fetching needed robust fallback system", "Font sizing required iteration for different text lengths"]
-    surprises: ["KPI Calculator was done in 20 minutes", "SimpleIcons CDN worked perfectly", "2x2 grid was the right MVP scope", "No API keys needed made it super accessible"]
+    expectations:
+      timeline: "8 hours for basic MVP"
+      challenges: ["Agent coordination", "Icon rendering", "Layout generation"]
+      key_risks: ["Over-engineering", "Scope creep", "Complex dependencies"]
 
-  key_learnings:
-    - title: "Start with the simplest possible grid"
-      description: "2x2 proved the concept. Could have started with 1x1 but 2x2 hit the sweet spot of 'looks real' without complexity."
+    reality:
+      timeline: "12 hours - layout math took longer"
+      challenges: ["Layout Compositor math took 5 hours instead of 2", "Icon fetching needed robust fallback system", "Font sizing required iteration for different text lengths"]
+      surprises: ["KPI Calculator was done in 20 minutes", "SimpleIcons CDN worked perfectly", "2x2 grid was the right MVP scope", "No API keys needed made it super accessible"]
 
-    - title: "Layout math is always underestimated"
-      description: "Expected 2 hours for Layout Compositor, took 5. Padding, margins, text wrapping, alignment - every detail adds up."
+    key_learnings:
+      - title: "Start with the simplest possible grid"
+        description: "2x2 proved the concept. Could have started with 1x1 but 2x2 hit the sweet spot of 'looks real' without complexity."
 
-    - title: "Fallbacks are not optional"
-      description: "Icon Fetcher needs graceful degradation. Unknown tech logos need colored boxes as fallback. Silent failures are worse than ugly outputs."
+      - title: "Layout math is always underestimated"
+        description: "Expected 2 hours for Layout Compositor, took 5. Padding, margins, text wrapping, alignment - every detail adds up."
 
-    - title: "The meta-documentation insight"
-      description: "Realized Arkify should document itself. This recursive self-documentation becomes a powerful demo and dogfooding opportunity."
+      - title: "Fallbacks are not optional"
+        description: "Icon Fetcher needs graceful degradation. Unknown tech logos need colored boxes as fallback. Silent failures are worse than ugly outputs."
+
+      - title: "The meta-documentation insight"
+        description: "Realized Arkify should document itself. This recursive self-documentation becomes a powerful demo and dogfooding opportunity."

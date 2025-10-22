@@ -50,12 +50,29 @@ class KPICalculator:
         if 'extended' in project:
             extended = project['extended']
 
-            # Results metrics
+            # Results metrics (architecture stats)
             if 'results' in extended:
                 results = extended['results']
                 kpis['users'] = results.get('users', 0)
                 kpis['signups'] = results.get('signups', 0)
                 kpis['revenue'] = results.get('revenue', 0)
+
+                # Project structure metrics (for Panel 3)
+                kpis['agents_created'] = results.get('agents_created', 0)
+                kpis['files_created'] = results.get('files_created', 0)
+                kpis['lines_of_code'] = results.get('lines_of_code', 0)
+                kpis['dependencies'] = results.get('dependencies', 0)
+                kpis['examples_working'] = results.get('examples_working', 0)
+                kpis['generation_time'] = results.get('generation_time', '?')
+
+            # Git-based metrics (from git_stats)
+            if 'git_stats' in extended:
+                git = extended['git_stats']
+                kpis['total_commits'] = git.get('total_commits', 0)
+                kpis['files_changed'] = git.get('files_changed', 0)
+                # Override lines_of_code with Git-measured if available
+                if 'lines_of_code' in git:
+                    kpis['lines_of_code'] = git['lines_of_code']
 
             # Reality check metrics
             if 'expectations' in extended and 'reality' in extended:
