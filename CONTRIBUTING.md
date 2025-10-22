@@ -62,7 +62,7 @@ Arkify is built by indie hackers, for indie hackers. We believe the best ideas c
 # Fork the repository on GitHub
 # Then clone your fork:
 
-git clone https://github.com/YOUR_USERNAME/arkify.git
+git clone https://github.com/aaaalabs/arkify.git
 cd arkify
 
 # Add upstream remote
@@ -335,8 +335,8 @@ Report issues to [maintainer email]. All complaints will be reviewed and investi
 
 ## 💬 Questions?
 
-- **General questions:** [GitHub Discussions](https://github.com/yourusername/arkify/discussions)
-- **Bug reports:** [GitHub Issues](https://github.com/yourusername/arkify/issues)
+- **General questions:** [GitHub Discussions](https://github.com/aaaalabs/arkify/discussions)
+- **Bug reports:** [GitHub Issues](https://github.com/aaaalabs/arkify/issues)
 - **Direct contact:** [maintainer email]
 
 ## 🎉 Thank You!
@@ -345,4 +345,4 @@ Every contribution makes Arkify better. Whether you're fixing a typo, designing 
 
 ---
 
-**Ready to contribute? Pick a [`good first issue`](https://github.com/yourusername/arkify/labels/good%20first%20issue) and let's ship! 🚀**
+**Ready to contribute? Pick a [`good first issue`](https://github.com/aaaalabs/arkify/labels/good%20first%20issue) and let's ship! 🚀**

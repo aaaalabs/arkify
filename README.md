@@ -48,7 +48,7 @@ Coming soon (see [ROADMAP](ROADMAP.md)):
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/arkify.git
+git clone https://github.com/aaaalabs/arkify.git
 cd arkify
 
 # Install dependencies
@@ -173,7 +173,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ### Good First Issues
 
-Look for issues labeled [`good first issue`](https://github.com/yourusername/arkify/labels/good%20first%20issue):
+Look for issues labeled [`good first issue`](https://github.com/aaaalabs/arkify/labels/good%20first%20issue):
 - Add support for more tech logos
 - Create new color themes
 - Improve error messages
@@ -239,7 +239,7 @@ This is an MVP! Known limitations:
 - No animation yet (Phase 3)
 - Manual input required (AI enrichment in Phase 4)
 
-See [GitHub Issues](https://github.com/yourusername/arkify/issues) for full list.
+See [GitHub Issues](https://github.com/aaaalabs/arkify/issues) for full list.
 
 ## 📊 Success Metrics
 
@@ -264,8 +264,8 @@ Inspired by the indie hacker community's desire to ship fast and share openly.
 
 ## 💬 Community
 
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/arkify/discussions)
-- **Issues:** [GitHub Issues](https://github.com/yourusername/arkify/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/aaaalabs/arkify/discussions)
+- **Issues:** [GitHub Issues](https://github.com/aaaalabs/arkify/issues)
 - **Twitter:** [@arkifyapp](https://twitter.com/arkifyapp) (coming soon)
 
 ## 🚢 Quick Deploy Checklist
@@ -284,4 +284,4 @@ Before your first post:
 
 **Built by indie hackers, for indie hackers. Let's make sharing projects effortless.**
 
-*[View Roadmap](ROADMAP.md) | [Contribute](CONTRIBUTING.md) | [Report Bug](https://github.com/yourusername/arkify/issues)*
+*[View Roadmap](ROADMAP.md) | [Contribute](CONTRIBUTING.md) | [Report Bug](https://github.com/aaaalabs/arkify/issues)*
