@@ -1,10 +1,27 @@
 # Arkify
 
-**Turn your side projects into scroll-stopping social media posts**
+**Universal multi-layer storytelling system**
 
-Arkify is a multi-agent AI system that automatically generates beautiful project breakdown infographics from simple YAML input. Built for indie hackers who want to share their work but don't have time for design.
+Arkify transforms complex narratives into beautiful visual breakdowns. From tech projects to life stories, business ventures to creative journeys - Arkify reveals the layers of any story worth telling.
 
 **Domain:** [arkify.app](https://arkify.app)
+
+---
+
+## 🌍 Beyond Code: Stories on Many Levels
+
+While Arkify starts with **technical project documentation** (Phase 0-3), the vision is universal storytelling:
+
+- **💻 Tech Projects** - Software development journeys, codebase evolution
+- **👤 Life Stories** - Personal evolution, career pivots, biographical arcs
+- **🚀 Business Ventures** - Startup journeys, entrepreneurial pivots, company growth
+- **🎨 Creative Projects** - Album creation, book writing, artistic evolution
+- **🌀 Multi-Layer Narratives** - Stories that exist on multiple dimensions simultaneously
+
+**Current Focus:** Tech projects (indie hacker use case)
+**Future Vision:** Universal storytelling platform for any narrative with depth
+
+> "Every story worth telling has multiple layers. Arkify reveals them all."
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Phase 0](https://img.shields.io/badge/phase-0%20MVP-green.svg)](ROADMAP.md)
@@ -225,11 +242,20 @@ See [ROADMAP.md](ROADMAP.md) for complete details.
 
 ## 🎯 Use Cases
 
+### Current (Phase 0-3): Tech Projects
 - **Side Project Launches** - Share on ProductHunt, HackerNews
 - **Portfolio Case Studies** - Professional breakdowns for your site
 - **LinkedIn Posts** - Stand out in the feed
 - **Blog Articles** - Visual headers for tech posts
 - **Agency Work** - Quick client project summaries
+
+### Future (Phase 7+): Universal Stories
+- **Life Stories** - Biographical milestones, career pivots, personal evolution
+- **Business Journeys** - Startup stories, entrepreneurial arcs, company pivots
+- **Creative Projects** - Album creation process, book writing journey, artistic evolution
+- **Multi-Dimensional Narratives** - Stories that exist on multiple layers simultaneously
+
+> **Note:** Current implementation focuses on tech projects. Multi-domain support planned for Phase 7+ after core system is perfected. See [docs/MULTI-DOMAIN-VISION.md](docs/MULTI-DOMAIN-VISION.md) for details.
 
 ## 🐛 Known Issues (Phase 0)
 

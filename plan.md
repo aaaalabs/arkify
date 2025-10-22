@@ -4,9 +4,165 @@
 
 ## Vision Statement
 
-Ein Open-Source Multi-Agent-System das automatisch hochwertige, visuell ansprechende Project Breakdown Infografiken generiert. Das System orchestriert spezialisierte Sub-Agents die gemeinsam ein kohärentes, story-getriebenes Gesamtbild erstellen - von der Datenerhebung über die visuelle Gestaltung bis zur finalen Animation.
+Arkify ist ein universelles Multi-Layer Storytelling System das komplexe Narrativen in visuelle Breakdowns transformiert. Während der initiale Fokus auf technischen Projekt-Dokumentationen liegt, ist die langfristige Vision das universelle Storytelling für jede Geschichte mit Tiefe.
 
-**Kernprinzip:** Jeder Agent ist ein Experte in seinem Bereich. Der Main Orchestrator sorgt für narrative Kohärenz und optimale User Journey.
+**Kurzfristig (Phase 0-6):** Open-Source Multi-Agent-System für hochwertige Project Breakdown Infografiken. Fokus auf Tech-Projekte für Indie Hacker.
+
+**Langfristig (Phase 7+):** Universelle Storytelling-Plattform für:
+- 💻 Tech Projects (Software development journeys)
+- 👤 Life Stories (Personal evolution, biographical arcs)
+- 🚀 Business Ventures (Startup journeys, entrepreneurial pivots)
+- 🎨 Creative Projects (Album creation, book writing, artistic evolution)
+- 🌀 Multi-Layer Narratives (Stories on multiple dimensions simultaneously)
+
+**Kernprinzip:** Jeder Agent ist ein Experte. Jede Geschichte hat Ebenen. Jede Ebene braucht ihre eigene Struktur.
+
+> "Every story worth telling has multiple layers. Arkify reveals them all."
+
+---
+
+## The Universal Vision: Beyond Code
+
+### Why Multi-Domain?
+
+Stories sind nicht eindimensional. Ein Tech-Projekt ist auch:
+- Eine persönliche Reise (Life Story)
+- Ein Business Venture (Entrepreneurial Arc)
+- Ein kreativer Prozess (Creative Journey)
+
+Arkify wird letztendlich alle Ebenen einer Geschichte visualisieren können.
+
+### Multi-Domain Architecture (Phase 7+)
+
+#### Core Schema + Domain Extensions
+
+**Universal Core** (gilt für ALLE Domains):
+```yaml
+story:
+  name: "Story Title"
+  tagline: "One-line description"
+  timeframe:
+    start: "2024-01"
+    end: "2024-10"
+  learning: "Key insight from this journey"
+  story_arc: "tech" | "life" | "business" | "creative"
+```
+
+**Tech Domain Extension** (Phase 0-6 Focus):
+```yaml
+tech:
+  tech_stack: ["React", "Python", "PostgreSQL"]
+  hours: 42
+  cost: 100
+  kpis:
+    users: 127
+    revenue: 0
+```
+
+**Life Domain Extension** (Phase 7+):
+```yaml
+life:
+  life_phases: ["Student", "Junior Dev", "Tech Lead"]
+  turning_points:
+    - date: "2020-03"
+      event: "First real job"
+      impact: "Realized I love solving real problems"
+  relationships:
+    - type: "mentor"
+      name: "Sarah"
+      influence: "Taught me to embrace failure"
+```
+
+**Business Domain Extension** (Phase 8+):
+```yaml
+business:
+  metrics:
+    mrr: 5000
+    customers: 42
+    runway_months: 6
+  pivots:
+    - from: "B2C SaaS"
+      to: "B2B API"
+      reason: "Customers asked for it"
+  team: ["Solo Founder", "+2 Contractors"]
+```
+
+**Creative Domain Extension** (Phase 8+):
+```yaml
+creative:
+  medium: "music" | "writing" | "art" | "film"
+  creative_process:
+    inspiration: "Childhood memories"
+    iterations: 7
+    final_form: "10 songs, 42 minutes"
+  influences: ["Miles Davis", "Joni Mitchell"]
+```
+
+#### Domain-Specific Story Arcs
+
+**Tech Arc** (Problem → Solution → Reality → Wisdom → Action)
+- **Problem**: User pain point that sparked the project
+- **Solution**: Technical approach and architecture
+- **Reality**: Implementation challenges, bugs, pivots
+- **Wisdom**: Technical and product lessons learned
+- **Action**: Next steps, open source, what's next
+
+**Life Arc** (Struggle → Breakthrough → Integration → Wisdom → Legacy)
+- **Struggle**: Personal challenge or life crisis
+- **Breakthrough**: Transformative moment or realization
+- **Integration**: How life changed after breakthrough
+- **Wisdom**: Life lessons learned through the journey
+- **Legacy**: Impact on others, what you leave behind
+
+**Business Arc** (Vision → Validation → Execution → Pivot → Scale)
+- **Vision**: Original business idea and market insight
+- **Validation**: Customer feedback and market response
+- **Execution**: Building the product, team, operations
+- **Pivot**: Critical adjustments based on reality
+- **Scale**: Growth phase and what's working
+
+**Creative Arc** (Inspiration → Creation → Struggle → Refinement → Release)
+- **Inspiration**: Initial creative spark or concept
+- **Creation**: Making process, flow states, experiments
+- **Struggle**: Creative blocks, self-doubt, iterations
+- **Refinement**: Editing, polishing, finalizing
+- **Release**: Sharing with world, audience response
+
+### Multi-Layer Narratives
+
+Ein Story kann gleichzeitig mehrere Domains haben:
+
+**Example:** "Building VoiceLoop MVP"
+- **Tech Layer**: React + AI integration, 200 hours dev time
+- **Life Layer**: Career pivot from corporate to indie hacking
+- **Business Layer**: First paying customers, finding PMF
+- **Creative Layer**: Designing voice UX, exploring new paradigm
+
+Arkify Phase 8+ wird diese Ebenen parallel visualisieren können.
+
+### Implementation Roadmap
+
+**Phase 0-6: Tech Domain Perfection** (Months 1-3)
+- Focus: Make tech project breakdowns world-class
+- Output: Production-ready system for indie hackers
+- Architecture: Build extensibility from day one
+
+**Phase 7: Multi-Domain Foundation** (Month 4)
+- Refactor core for domain-agnostic design
+- Schema extension system
+- Life Stories domain (first non-tech)
+
+**Phase 8: Universal Storytelling** (Months 5-6)
+- Business Ventures domain
+- Creative Projects domain
+- Multi-layer narrative support
+- Cross-domain insights engine
+
+**Phase 9+: The Future** (Month 7+)
+- AI-generated story arcs from minimal input
+- Community story templates
+- Cross-domain pattern recognition
+- Story remix engine (combine stories)
 
 ---
 

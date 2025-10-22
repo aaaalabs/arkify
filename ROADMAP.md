@@ -498,17 +498,89 @@ arkify/
 
 ---
 
+---
+
+## 🌍 Phase 7: Multi-Domain Foundation (Months 4-5)
+
+**Timeline:** Weeks 19-22
+**Goal:** Refactor core for universal storytelling
+
+### Objectives
+- [ ] Refactor core architecture for domain-agnostic design
+- [ ] Implement schema extension system
+- [ ] Create domain-specific story arc engine
+- [ ] Launch **Life Stories** domain (first non-tech)
+
+### Features
+- **Core Schema + Extensions**: Universal fields + domain-specific extensions
+- **Story Arc Templates**: Domain-specific narrative structures
+- **Life Stories Domain**: Personal evolution, career pivots, biographical arcs
+- **Multi-Domain CLI**: `python arkify.py --domain life story.yaml`
+
+### Why This Phase
+Arkify's ultimate vision is **universal storytelling** - not just tech projects. This phase lays the foundation for stories on multiple levels.
+
+### Success Criteria
+- ✅ Core refactored without breaking tech domain
+- ✅ First life story breakdown generated
+- ✅ Schema extension system documented
+- ✅ 3+ domain-specific story arc templates
+
+---
+
+## 🎨 Phase 8: Universal Storytelling (Months 5-6)
+
+**Timeline:** Weeks 23-26
+**Goal:** Complete multi-domain support
+
+### Objectives
+- [ ] Launch **Business Ventures** domain
+- [ ] Launch **Creative Projects** domain
+- [ ] Implement **multi-layer narrative** support
+- [ ] Cross-domain insights engine
+
+### Features
+- **Business Ventures**: Startup journeys, pivots, entrepreneurial arcs
+- **Creative Projects**: Album creation, book writing, artistic evolution
+- **Multi-Layer Stories**: Stories that exist on multiple dimensions simultaneously
+- **Cross-Domain Insights**: Connect patterns across different story types
+
+### Story Arc Examples
+
+**Tech Arc** (Problem → Solution → Reality → Wisdom → Action)
+- Focus: User pain points, technical implementation
+
+**Life Arc** (Struggle → Breakthrough → Integration → Wisdom → Legacy)
+- Focus: Personal transformation, life changes
+
+**Business Arc** (Vision → Validation → Execution → Pivot → Scale)
+- Focus: Market feedback, growth metrics
+
+**Creative Arc** (Inspiration → Creation → Struggle → Refinement → Release)
+- Focus: Creative process, artistic evolution
+
+### Success Criteria
+- ✅ 4 domains fully operational (Tech, Life, Business, Creative)
+- ✅ Domain-specific visual styles
+- ✅ Multi-layer narrative examples
+- ✅ 100+ non-tech breakdowns generated
+
+**Documentation:** See `docs/MULTI-DOMAIN-VISION.md` for complete specification
+
+---
+
 ## Get Involved
 
 ### For Users
 - Try the MVP when Phase 0 launches
-- Share your generated breakdowns
+- Share your generated breakdowns (tech, life, business, creative!)
 - Submit feedback and feature requests
 
 ### For Contributors
 - Check `CONTRIBUTING.md` for guidelines
 - Look for "good first issue" labels
 - Join monthly community calls
+- Help design domain-specific story arcs
 
 ### For Sponsors
 - Support development via GitHub Sponsors
@@ -517,7 +589,10 @@ arkify/
 
 ---
 
-**Let's build the future of project storytelling, one phase at a time.**
+**Let's build the future of universal storytelling, one phase at a time.**
+
+> "Every story worth telling has multiple layers. Arkify reveals them all."
 
 *Last updated: 2025-10-22*
 *Current phase: Phase 0 (Week 1)*
+*Future vision: Universal storytelling (Phase 7+)*

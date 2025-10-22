@@ -4,11 +4,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Arkify** is a multi-agent AI system that automatically generates high-quality, visually appealing project breakdown infographics. The system orchestrates specialized sub-agents to create cohesive, story-driven content from project data.
+**Arkify** is a universal multi-layer storytelling system that transforms complex narratives into beautiful visual breakdowns. While initially focused on technical project documentation, the long-term vision encompasses life stories, business ventures, creative projects, and multi-dimensional narratives.
 
 **Domain:** arkify.app
 
-**Current Status:** Planning phase - the repository contains architectural documentation but no implementation yet.
+**Current Status:** Phase 0 MVP - 2x2 grid generator for tech projects (working)
+
+**Current Focus:** Tech project breakdowns (Phase 0-6)
+**Future Vision:** Universal storytelling for any narrative with depth (Phase 7+)
+
+### Multi-Domain Vision (Phase 7+ Roadmap)
+
+Arkify will ultimately support multiple story domains:
+
+- **💻 Tech Projects** - Software development journeys (Phase 0-6 focus)
+- **👤 Life Stories** - Personal evolution, career pivots, biographical arcs
+- **🚀 Business Ventures** - Startup journeys, entrepreneurial pivots, company growth
+- **🎨 Creative Projects** - Album creation, book writing, artistic evolution
+- **🌀 Multi-Layer Narratives** - Stories that exist on multiple dimensions simultaneously
+
+**Architecture Philosophy:**
+- Phase 0-6: Perfect tech domain implementation
+- Phase 7+: Expand to universal storytelling
+- Core Schema + Domain Extensions pattern
+- Domain-specific Story Arcs
+
+See `docs/MULTI-DOMAIN-VISION.md` for complete specification.
 
 ## Project Architecture
 
