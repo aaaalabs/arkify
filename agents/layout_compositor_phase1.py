@@ -308,11 +308,12 @@ class LayoutCompositorPhase1:
 
         expectations = data.get('expectations', {})
 
-        # Timeline - 72px from top (9*8px)
-        timeline = expectations.get('timeline', 'N/A')
-        timeline_y = y + 72  # 72 = 9*8px (was 70 - fixed!)
-        self._draw_wrapped_text(draw, timeline, x + 16, timeline_y, w - 32,  # 16px margins (2*8px)
-                               self.fonts['medium'], self.colors['expected_grey'])
+        # Timeline - 72px from top (9*8px) - NO MOCK DATA!
+        timeline = expectations.get('timeline')
+        if timeline:  # Only render if data exists
+            timeline_y = y + 72  # 72 = 9*8px (was 70 - fixed!)
+            self._draw_wrapped_text(draw, timeline, x + 16, timeline_y, w - 32,  # 16px margins (2*8px)
+                                   self.fonts['medium'], self.colors['expected_grey'])
 
         # Cost - 144px from top (18*8px)
         cost = expectations.get('cost', 0)
@@ -353,11 +354,12 @@ class LayoutCompositorPhase1:
 
         reality = data.get('reality', {})
 
-        # Timeline - 72px from top (9*8px)
-        timeline = reality.get('timeline', 'N/A')
-        timeline_y = y + 72  # 72 = 9*8px (was 70 - fixed!)
-        self._draw_wrapped_text(draw, timeline, x + 16, timeline_y, w - 32,  # 16px margins
-                               self.fonts['medium'], self.colors['electric_green'])
+        # Timeline - 72px from top (9*8px) - NO MOCK DATA!
+        timeline = reality.get('timeline')
+        if timeline:  # Only render if data exists
+            timeline_y = y + 72  # 72 = 9*8px (was 70 - fixed!)
+            self._draw_wrapped_text(draw, timeline, x + 16, timeline_y, w - 32,  # 16px margins
+                                   self.fonts['medium'], self.colors['electric_green'])
 
         # Cost - 144px from top (18*8px)
         cost = reality.get('cost', 0)
