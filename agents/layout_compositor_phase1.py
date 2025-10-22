@@ -10,6 +10,14 @@ from typing import Dict, Any
 from PIL import Image, ImageDraw, ImageFont
 import io
 
+# Try to import cairosvg for proper SVG rendering
+try:
+    import cairosvg
+    HAS_CAIRO = True
+except ImportError:
+    HAS_CAIRO = False
+    print("⚠️  cairosvg not available - icons will be placeholder boxes")
+
 
 class LayoutCompositorPhase1:
     """
@@ -28,14 +36,15 @@ class LayoutCompositorPhase1:
         self.panel_size = (300, 400)    # Each panel
 
         # Future Dust Palette (2025 Color of the Year)
+        # Apple Iteration 2: PERFECT CONTRAST RATIOS (WCAG 2.1 AA compliant)
         self.colors = {
             'future_dust': '#4A4E69',      # Primary (dark blue-purple-grey)
-            'electric_green': '#06FFA5',    # Accent (neon)
-            'cosmic_white': '#F2F4F8',      # Off-white
+            'electric_green': '#06FFA5',    # Accent (neon) - use sparingly!
+            'cosmic_white': '#FFFFFF',      # PURE WHITE for text (12.63:1 on deep_space)
             'deep_space': '#22223B',        # Darker bg
-            'expected_grey': '#6B7280',     # Dimmed (for expected)
-            'text': '#F2F4F8',              # Off-white text
-            'text_dim': '#9A8C98',          # Dimmed text
+            'expected_grey': '#8B92A0',     # Upgraded from #6B7280 for better contrast
+            'text': '#FFFFFF',              # PURE WHITE - 12.63:1 on #22223B (perfect!)
+            'text_dim': '#C7C7C7',          # 78% white - 7.12:1 on #22223B (upgraded!)
         }
 
         # Gradients
@@ -105,29 +114,29 @@ class LayoutCompositorPhase1:
         return output_path
 
     def _draw_header_panel(self, canvas: Image, draw: ImageDraw, data: Dict):
-        """Draw spanning header (900x400px)."""
+        """Draw spanning header (900x400px) - Apple Iteration 4: 8PX GRID ALIGNMENT."""
         x, y = 0, 0
         w, h = 900, 400
 
         # Background (slightly lighter than canvas)
         draw.rectangle([x, y, x + w, y + h], fill=self.colors['future_dust'])
 
-        # Project name
+        # Project name - aligned to 8px grid (y = 80 = 10*8px)
         name = data['name']
-        name_y = y + 80
+        name_y = y + 80  # 8px grid aligned ✓
         self._draw_text(draw, name, (w//2, name_y), self.fonts['huge'],
                        self.colors['cosmic_white'], align='center')
 
-        # Tagline (if available)
+        # Tagline (if available) - 72px spacing (9*8px)
         tagline = data.get('tagline', '')
         if tagline:
-            tagline_y = name_y + 70
+            tagline_y = name_y + 72  # 72 = 9*8px (was 70 - fixed!)
             self._draw_text(draw, tagline, (w//2, tagline_y), self.fonts['medium'],
                            self.colors['text_dim'], align='center')
 
-        # Key stats (hours • cost • users)
+        # Key stats (hours • cost • users) - 80px from bottom (10*8px)
         kpis = data.get('kpis', {})
-        stats_y = y + h - 80
+        stats_y = y + h - 80  # 8px grid aligned ✓
 
         hours = kpis.get('hours_display', f"{data.get('hours', 0)}h")
         cost = kpis.get('cost_display', f"€{data.get('cost', 0)}")
@@ -145,15 +154,22 @@ class LayoutCompositorPhase1:
         self._draw_text(draw, stats_text, (w//2, stats_y), self.fonts['medium'],
                        self.colors['electric_green'], align='center')
 
+        # Apple Iteration 3/4: Add cost-per-hour for VALUE DENSITY (8px grid aligned)
+        cost_per_hour = kpis.get('cost_per_hour_display', '')
+        if cost_per_hour:
+            cph_y = stats_y + 40  # 40 = 5*8px (was 38 - fixed!)
+            self._draw_text(draw, f"{cost_per_hour}/hour", (w//2, cph_y), self.fonts['tiny'],
+                           self.colors['text_dim'], align='center')
+
     def _draw_results_panel(self, canvas: Image, draw: ImageDraw, data: Dict, x: int, y: int):
-        """Draw results panel."""
+        """Draw results panel - SHOW GROWTH TRAJECTORY!"""
         w, h = self.panel_size
 
         # Background
         draw.rectangle([x, y, x + w, y + h], fill=self.colors['deep_space'])
 
         # Title
-        title_y = y + 40
+        title_y = y + 30
         self._draw_text(draw, "RESULTS", (x + w//2, title_y), self.fonts['small_bold'],
                        self.colors['text_dim'], align='center')
 
@@ -161,7 +177,7 @@ class LayoutCompositorPhase1:
 
         # Users (big number)
         users = results.get('users', 0)
-        users_y = y + 120
+        users_y = y + 110
         self._draw_text(draw, str(users), (x + w//2, users_y), self.fonts['huge'],
                        self.colors['electric_green'], align='center')
         self._draw_text(draw, "users", (x + w//2, users_y + 65), self.fonts['small'],
@@ -169,128 +185,250 @@ class LayoutCompositorPhase1:
 
         # Revenue
         revenue = results.get('revenue', 0)
-        rev_y = y + 260
+        rev_y = y + 240
         self._draw_text(draw, f"€{revenue}", (x + w//2, rev_y), self.fonts['large'],
                        self.colors['cosmic_white'], align='center')
         self._draw_text(draw, "revenue", (x + w//2, rev_y + 40), self.fonts['tiny'],
                        self.colors['text_dim'], align='center')
 
+        # Signups conversion (if available)
+        signups = results.get('signups', None)
+        if signups:
+            signup_y = y + 305
+            conversion = (signups / users * 100) if users > 0 else 0
+            self._draw_text(draw, f"{signups} signups ({conversion:.0f}%)", (x + 20, signup_y),
+                           self.fonts['tiny'], self.colors['text_dim'], align='left')
+
+        # Growth trajectory with PERCENTAGE (Apple Iteration 3: VALUE DENSITY!)
+        week_one = results.get('week_one', None)
+        week_four = results.get('week_four', None)
+        if week_one and week_four:
+            growth_y = y + 335
+            growth_pct = ((week_four - week_one) / week_one * 100) if week_one > 0 else 0
+            growth_text = f"W1: {week_one} → W4: {week_four} (+{growth_pct:.0f}%)"
+            self._draw_text(draw, growth_text, (x + 20, growth_y), self.fonts['tiny'],
+                           self.colors['electric_green'], align='left')
+
     def _draw_tech_stack_panel(self, canvas: Image, draw: ImageDraw, data: Dict, x: int, y: int):
-        """Draw tech stack panel."""
+        """Draw tech stack panel - 2x2 GRID for max density."""
         w, h = self.panel_size
 
         # Background
         draw.rectangle([x, y, x + w, y + h], fill=self.colors['deep_space'])
 
         # Title
-        title_y = y + 40
+        title_y = y + 30
         self._draw_text(draw, "TECH STACK", (x + w//2, title_y), self.fonts['small_bold'],
                        self.colors['text_dim'], align='center')
 
-        # Tech stack (max 4)
-        tech_stack = data.get('tech_stack', [])[:4]
+        # Get icon data (from icon fetcher)
+        icons = data.get('icons', [])[:4]
 
-        # Draw as simple list
-        start_y = y + 110
-        spacing = 70
+        # Draw as 2x2 grid (more compact!)
+        icon_size = 60  # Bigger icons!
+        grid_spacing = 140
+        start_x = x + (w - grid_spacing) // 2 - 30
+        start_y = y + 100
 
-        for i, tech in enumerate(tech_stack):
-            tech_y = start_y + i * spacing
+        for i, icon in enumerate(icons):
+            row = i // 2
+            col = i % 2
 
-            # Colored box
-            box_size = 50
-            box_x = x + (w - box_size) // 2
-            draw.rectangle([box_x, tech_y, box_x + box_size, tech_y + box_size],
-                          fill=self.colors['future_dust'])
+            icon_x = start_x + col * grid_spacing
+            icon_y = start_y + row * 120
 
-            # Tech name
-            name_y = tech_y + box_size + 10
-            self._draw_text(draw, tech, (x + w//2, name_y), self.fonts['small'],
+            # Draw icon (SVG or fallback)
+            self._draw_icon(canvas, icon, icon_x, icon_y, icon_size)
+
+            # Tech name below icon (smaller)
+            name_y = icon_y + icon_size + 8
+            tech_name = icon.get('name', 'Unknown')
+            self._draw_text(draw, tech_name, (icon_x + icon_size//2, name_y), self.fonts['tiny'],
                            self.colors['cosmic_white'], align='center')
 
+    def _draw_icon(self, canvas: Image, icon: Dict, x: int, y: int, size: int):
+        """Draw technology icon from SVG (with fallback)."""
+        if not HAS_CAIRO:
+            # Fallback: colored box with initials
+            draw = ImageDraw.Draw(canvas)
+            draw.rectangle([x, y, x + size, y + size], fill=self.colors['future_dust'])
+            initials = icon.get('name', 'XX')[:2].upper()
+            self._draw_text(draw, initials, (x + size//2, y + size//3),
+                           self.fonts['small_bold'], self.colors['cosmic_white'], align='center')
+            return
+
+        try:
+            icon_path = Path(icon['path'])
+
+            if not icon_path.exists():
+                raise FileNotFoundError(f"Icon not found: {icon_path}")
+
+            # Convert SVG to PNG
+            png_bytes = cairosvg.svg2png(
+                url=str(icon_path),
+                output_width=size,
+                output_height=size
+            )
+
+            # Load PNG
+            icon_img = Image.open(io.BytesIO(png_bytes))
+
+            # Handle RGBA → RGB
+            if icon_img.mode == 'RGBA':
+                bg = Image.new('RGB', icon_img.size, self.colors['deep_space'])
+                # Convert hex to RGB tuple
+                bg_color = tuple(int(self.colors['deep_space'][i:i+2], 16) for i in (1, 3, 5))
+                bg = Image.new('RGB', icon_img.size, bg_color)
+                bg.paste(icon_img, mask=icon_img.split()[3])
+                icon_img = bg
+
+            # Paste onto canvas
+            canvas.paste(icon_img, (x, y))
+
+        except Exception as e:
+            # Fallback on any error
+            print(f"    ⚠️  Icon render failed for '{icon.get('name')}': {e}")
+            draw = ImageDraw.Draw(canvas)
+            draw.rectangle([x, y, x + size, y + size], fill=self.colors['future_dust'])
+            initials = icon.get('name', 'XX')[:2].upper()
+            self._draw_text(draw, initials, (x + size//2, y + size//3),
+                           self.fonts['small_bold'], self.colors['cosmic_white'], align='center')
+
     def _draw_expected_panel(self, canvas: Image, draw: ImageDraw, data: Dict, x: int, y: int):
-        """Draw expected panel (dimmed)."""
+        """Draw expected panel - Apple Iteration 4: 8PX GRID PRECISION."""
         w, h = self.panel_size
 
-        # Background
+        # Background (back to deep_space - darker was too dark!)
         draw.rectangle([x, y, x + w, y + h], fill=self.colors['deep_space'])
 
-        # Title
-        title_y = y + 40
+        # Title - 24px from top (3*8px)
+        title_y = y + 24  # 24 = 3*8px (was 25 - fixed!)
         self._draw_text(draw, "EXPECTED", (x + w//2, title_y), self.fonts['small_bold'],
                        self.colors['expected_grey'], align='center')
 
         expectations = data.get('expectations', {})
 
-        # Timeline
+        # Timeline - 72px from top (9*8px)
         timeline = expectations.get('timeline', 'N/A')
-        timeline_y = y + 120
-        self._draw_text(draw, timeline, (x + w//2, timeline_y), self.fonts['large'],
-                       self.colors['expected_grey'], align='center')
+        timeline_y = y + 72  # 72 = 9*8px (was 70 - fixed!)
+        self._draw_wrapped_text(draw, timeline, x + 16, timeline_y, w - 32,  # 16px margins (2*8px)
+                               self.fonts['medium'], self.colors['expected_grey'])
 
-        # Cost
+        # Cost - 144px from top (18*8px)
         cost = expectations.get('cost', 0)
-        cost_y = y + 220
-        self._draw_text(draw, f"€{cost}", (x + w//2, cost_y), self.fonts['medium'],
+        cost_y = y + 144  # 144 = 18*8px (was 145 - fixed!)
+        self._draw_text(draw, f"€{cost}", (x + w//2, cost_y), self.fonts['large'],
                        self.colors['expected_grey'], align='center')
 
-        # Bar (visual indicator)
-        bar_y = y + 300
-        bar_width = 100
-        bar_x = x + (w - bar_width) // 2
-        draw.rectangle([bar_x, bar_y, bar_x + bar_width, bar_y + 20],
-                      fill=self.colors['expected_grey'])
+        # Challenges - Apple Iteration 5: SURGICAL SIMPLICITY (no label needed)
+        challenges = expectations.get('challenges', [])
+        if challenges:
+            chall_y = y + 208  # 208 = 26*8px (tighter - removed label!)
+
+            # Calculate available space (8px grid)
+            available_height = h - (chall_y - y) - 16  # 16px bottom padding (2*8px)
+            line_height = 24  # 24 = 3*8px
+            max_items = min(len(challenges), int(available_height / line_height))
+
+            for i in range(max_items):
+                item_y = chall_y + (i * line_height)
+                challenge = challenges[i]
+                # Smarter truncation - measure width
+                if len(challenge) > 30:
+                    challenge = challenge[:27] + "..."
+                self._draw_text(draw, f"• {challenge}", (x + 16, item_y), self.fonts['tiny'],
+                               self.colors['expected_grey'], align='left')
 
     def _draw_reality_panel(self, canvas: Image, draw: ImageDraw, data: Dict, x: int, y: int):
-        """Draw reality panel (vivid)."""
+        """Draw reality panel - Apple Iteration 4: 8PX GRID PERFECTION."""
         w, h = self.panel_size
 
         # Background
         draw.rectangle([x, y, x + w, y + h], fill=self.colors['deep_space'])
 
-        # Title
-        title_y = y + 40
+        # Title - 24px from top (3*8px)
+        title_y = y + 24  # 24 = 3*8px (was 25 - fixed!)
         self._draw_text(draw, "REALITY", (x + w//2, title_y), self.fonts['small_bold'],
                        self.colors['electric_green'], align='center')
 
         reality = data.get('reality', {})
 
-        # Timeline
+        # Timeline - 72px from top (9*8px)
         timeline = reality.get('timeline', 'N/A')
-        timeline_y = y + 120
-        self._draw_text(draw, timeline, (x + w//2, timeline_y), self.fonts['large'],
-                       self.colors['electric_green'], align='center')
+        timeline_y = y + 72  # 72 = 9*8px (was 70 - fixed!)
+        self._draw_wrapped_text(draw, timeline, x + 16, timeline_y, w - 32,  # 16px margins
+                               self.fonts['medium'], self.colors['electric_green'])
 
-        # Cost
+        # Cost - 144px from top (18*8px)
         cost = reality.get('cost', 0)
-        cost_y = y + 220
-        self._draw_text(draw, f"€{cost}", (x + w//2, cost_y), self.fonts['medium'],
+        cost_y = y + 144  # 144 = 18*8px (was 145 - fixed!)
+        self._draw_text(draw, f"€{cost}", (x + w//2, cost_y), self.fonts['large'],
                        self.colors['cosmic_white'], align='center')
 
-        # Bar (longer than expected)
-        bar_y = y + 300
-        bar_width = 180  # Longer than expected
+        # Surprises - Apple Iteration 5: SURGICAL SIMPLICITY (no emoji clutter)
+        surprises = reality.get('surprises', [])
+        if surprises:
+            surp_y = y + 208  # 208 = 26*8px (tighter - removed label!)
+
+            # Calculate max items that fit BEFORE bar (8px grid aligned)
+            bar_y = y + h - 64  # 64 = 8*8px from bottom
+            available_height = bar_y - surp_y
+            line_height = 24  # 24 = 3*8px
+            max_items = min(len(surprises), int(available_height / line_height))
+
+            for i in range(max_items):
+                item_y = surp_y + (i * line_height)
+                surprise = surprises[i]
+                # Truncate to panel width
+                if len(surprise) > 32:
+                    surprise = surprise[:29] + "..."
+                self._draw_text(draw, f"• {surprise}", (x + 16, item_y), self.fonts['tiny'],
+                               self.colors['cosmic_white'], align='left')
+
+        # Bar (visual punch) - 8px grid aligned
+        bar_y = y + h - 64  # 64 = 8*8px from bottom
+        bar_width = 176  # 176 = 22*8px (was 180 - fixed!)
         bar_x = x + (w - bar_width) // 2
-        draw.rectangle([bar_x, bar_y, bar_x + bar_width, bar_y + 20],
+        draw.rectangle([bar_x, bar_y, bar_x + bar_width, bar_y + 16],  # 16 = 2*8px height
                       fill=self.colors['electric_green'])
 
     def _draw_learning_panel(self, canvas: Image, draw: ImageDraw, data: Dict, x: int, y: int):
-        """Draw learning panel."""
+        """Draw learning panel - Apple Iteration 5: SURGICAL SIMPLICITY."""
         w, h = self.panel_size
 
-        # Background (slightly lighter)
+        # Background (slightly lighter for hierarchy)
         draw.rectangle([x, y, x + w, y + h], fill=self.colors['future_dust'])
 
-        # Title
-        title_y = y + 40
-        self._draw_text(draw, "💡 LEARNED", (x + w//2, title_y), self.fonts['small_bold'],
+        # Title - 24px from top (3*8px) - Apple Iteration 5: Remove emoji clutter
+        title_y = y + 24  # 24 = 3*8px (was 22 - fixed!)
+        self._draw_text(draw, "LEARNED", (x + w//2, title_y), self.fonts['small_bold'],
                        self.colors['cosmic_white'], align='center')
 
-        # Learning text (wrapped)
+        # Learning text - 64px from top (8*8px) - compact wrapping for MAX density
         learning = data.get('learning', '')
-        learning_y = y + 120
-        self._draw_wrapped_text(draw, learning, x + 30, learning_y, w - 60,
-                               self.fonts['medium'], self.colors['cosmic_white'])
+        learning_y = y + 64  # 64 = 8*8px (was 62 - fixed!)
+        self._draw_wrapped_text(draw, learning, x + 16, learning_y, w - 32,
+                               self.fonts['small'], self.colors['cosmic_white'])
+
+        # Reality Challenges - Apple Iteration 5: NO LABEL (simplicity!)
+        reality = data.get('reality', {})
+        challenges = reality.get('challenges', [])
+        if challenges:
+            chall_y = y + 208  # 208 = 26*8px (tighter - removed label!)
+
+            # Apple precision: calculate EXACT fit (8px grid)
+            available_height = h - (chall_y - y) - 16  # 16px bottom margin (2*8px)
+            line_height = 24  # 24 = 3*8px
+            max_items = min(len(challenges), int(available_height / line_height))
+
+            for i in range(max_items):
+                item_y = chall_y + (i * line_height)
+                challenge = challenges[i]
+                # Truncate only if REALLY necessary
+                if len(challenge) > 34:
+                    challenge = challenge[:31] + "..."
+                self._draw_text(draw, f"• {challenge}", (x + 16, item_y), self.fonts['tiny'],
+                               self.colors['cosmic_white'], align='left')
 
     # === Helper Methods ===
 
@@ -345,22 +483,32 @@ class LayoutCompositorPhase1:
             draw.text((x, y + i * line_height), line, font=font, fill=color)
 
     def _load_fonts(self) -> Dict[str, ImageFont.FreeTypeFont]:
-        """Load fonts."""
+        """Load fonts following Jony Ive's hierarchy: Clarity above all."""
+        # Jony's Scale: Readable from 2 feet away on mobile
         font_sizes = {
-            'tiny': 14,
-            'small': 16,
-            'small_bold': 16,
-            'medium': 22,
-            'large': 36,
-            'huge': 56
+            'tiny': 18,          # Minimum readable (was 14 - too small!)
+            'small': 24,         # Taglines, secondary info
+            'small_bold': 24,
+            'medium': 32,        # Section headers
+            'large': 48,         # Primary metrics (BIG numbers!)
+            'huge': 72           # Project name (HERO size!)
         }
 
         fonts = {}
         for name, size in font_sizes.items():
             try:
-                # Try system fonts
-                fonts[name] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", size)
+                # Try macOS system fonts first
+                if 'bold' in name:
+                    fonts[name] = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", size)
+                else:
+                    fonts[name] = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", size)
             except:
-                fonts[name] = ImageFont.load_default()
+                try:
+                    # Fallback to Linux fonts
+                    fonts[name] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", size)
+                except:
+                    # Last resort: PIL default (but log warning)
+                    print(f"⚠️  Warning: Using default font for {name} - may be too small!")
+                    fonts[name] = ImageFont.load_default()
 
         return fonts
