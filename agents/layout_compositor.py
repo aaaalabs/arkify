@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Dict, Any
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 import io
+import cairosvg
 
 
 class LayoutCompositor:
@@ -289,17 +290,35 @@ class LayoutCompositor:
                        self.colors['text_light'], align='center')
 
     def _draw_icon(self, canvas: Image, icon: Dict, x: int, y: int, size: int):
-        """Draw technology icon."""
+        """Draw technology icon from SVG."""
         try:
-            # Load SVG as image (simplified - just use a colored box for MVP)
-            # Phase 2 will add proper SVG rendering
-            icon_img = Image.new('RGB', (size, size), self.colors['primary'])
+            icon_path = Path(icon['path'])
+
+            if not icon_path.exists():
+                raise FileNotFoundError(f"Icon file not found: {icon_path}")
+
+            # Convert SVG to PNG using cairosvg
+            png_bytes = cairosvg.svg2png(
+                url=str(icon_path),
+                output_width=size,
+                output_height=size
+            )
+
+            # Load PNG into PIL Image
+            icon_img = Image.open(io.BytesIO(png_bytes))
+
+            # Convert RGBA to RGB with white background
+            if icon_img.mode == 'RGBA':
+                bg = Image.new('RGB', icon_img.size, (255, 255, 255))
+                bg.paste(icon_img, mask=icon_img.split()[3])  # Use alpha channel as mask
+                icon_img = bg
 
             # Paste onto canvas
             canvas.paste(icon_img, (x, y))
 
         except Exception as e:
             # Fallback: draw colored box with initials
+            print(f"    ⚠️  Could not render icon '{icon['name']}': {e}")
             draw = ImageDraw.Draw(canvas)
             draw.rectangle([x, y, x + size, y + size], fill=self.colors['primary'])
 
