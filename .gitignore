@@ -25,6 +25,8 @@ output/*.gif
 output/*.svg
 output/*.html
 !output/.gitkeep
+# Exception: Allow meta breakdowns (Arkify documenting itself)
+!output/*phase-*.png
 
 # OS
 .DS_Store
