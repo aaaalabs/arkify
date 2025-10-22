@@ -175,37 +175,56 @@ class LayoutCompositorPhase1:
 
         results = data.get('results', {})
 
-        # Users (big number)
-        users = results.get('users', 0)
-        users_y = y + 110
-        self._draw_text(draw, str(users), (x + w//2, users_y), self.fonts['huge'],
+        # Smart metric detection: users OR commits OR files_created
+        primary_metric = results.get('users') or results.get('commits') or results.get('files_created', 0)
+        primary_label = 'users' if 'users' in results else ('commits' if 'commits' in results else 'files')
+
+        # Primary metric (big number)
+        primary_y = y + 110
+        self._draw_text(draw, str(primary_metric), (x + w//2, primary_y), self.fonts['huge'],
                        self.colors['electric_green'], align='center')
-        self._draw_text(draw, "users", (x + w//2, users_y + 65), self.fonts['small'],
+        self._draw_text(draw, primary_label, (x + w//2, primary_y + 65), self.fonts['small'],
                        self.colors['text_dim'], align='center')
 
-        # Revenue
-        revenue = results.get('revenue', 0)
-        rev_y = y + 240
-        self._draw_text(draw, f"€{revenue}", (x + w//2, rev_y), self.fonts['large'],
-                       self.colors['cosmic_white'], align='center')
-        self._draw_text(draw, "revenue", (x + w//2, rev_y + 40), self.fonts['tiny'],
-                       self.colors['text_dim'], align='center')
+        # Secondary metric: revenue OR lines_of_code OR failures
+        secondary_metric = results.get('revenue')
+        secondary_label = 'revenue'
+        if secondary_metric is None:
+            secondary_metric = results.get('lines_of_code')
+            secondary_label = 'LOC' if secondary_metric else None
 
-        # Signups conversion (if available)
-        signups = results.get('signups', None)
-        if signups:
-            signup_y = y + 305
-            conversion = (signups / users * 100) if users > 0 else 0
-            self._draw_text(draw, f"{signups} signups ({conversion:.0f}%)", (x + 20, signup_y),
+        if secondary_metric is not None:
+            sec_y = y + 240
+            sec_text = f"€{secondary_metric}" if secondary_label == 'revenue' else str(secondary_metric)
+            self._draw_text(draw, sec_text, (x + w//2, sec_y), self.fonts['large'],
+                           self.colors['cosmic_white'], align='center')
+            self._draw_text(draw, secondary_label, (x + w//2, sec_y + 40), self.fonts['tiny'],
+                           self.colors['text_dim'], align='center')
+
+        # Tertiary metrics: signups OR failures, iterations
+        failures = results.get('failures')
+        iterations = results.get('iterations')
+        if failures or iterations:
+            metric_y = y + 305
+            metrics = []
+            if failures:
+                metrics.append(f"{failures} fails")
+            if iterations:
+                metrics.append(f"{iterations} iterations")
+            self._draw_text(draw, " • ".join(metrics), (x + 20, metric_y),
                            self.fonts['tiny'], self.colors['text_dim'], align='left')
 
-        # Growth trajectory with PERCENTAGE (Apple Iteration 3: VALUE DENSITY!)
+        # Growth trajectory (VALUE DENSITY!)
         week_one = results.get('week_one', None)
         week_four = results.get('week_four', None)
-        if week_one and week_four:
+        if week_one is not None and week_four is not None:
             growth_y = y + 335
-            growth_pct = ((week_four - week_one) / week_one * 100) if week_one > 0 else 0
-            growth_text = f"W1: {week_one} → W4: {week_four} (+{growth_pct:.0f}%)"
+            if week_one > 0:
+                growth_pct = ((week_four - week_one) / week_one * 100)
+                growth_text = f"W1: {week_one} → W4: {week_four} (+{growth_pct:.0f}%)"
+            else:
+                # When starting from 0, show absolute growth
+                growth_text = f"Day 1: {week_one} → Today: {week_four}"
             self._draw_text(draw, growth_text, (x + 20, growth_y), self.fonts['tiny'],
                            self.colors['electric_green'], align='left')
 
