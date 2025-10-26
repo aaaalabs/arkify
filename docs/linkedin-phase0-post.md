@@ -2,7 +2,11 @@
 
 ---
 
-## Phase 0 war hässlich.
+## Variante 1: "Phase 0 war hässlich"
+
+---
+
+Phase 0 war hässlich.
 
 Bunte Boxen statt Icons.
 2x2 Grid statt Story.
@@ -42,19 +46,9 @@ Dass 4 Agents zusammen etwas schaffen, was jeder einzeln nicht könnte.
 **Und dann die eigentliche Frage:**
 
 Was, wenn aus diesen hässlichen bunten Boxen echte Brand Icons werden?
-Was, wenn aus 2x2 ein 3x3 Grid wird, das eine Story erzählt?
-Was, wenn aus statischen PNGs animierte GIFs werden?
+Was, wenn aus 2x2 ein Grid wird, das eine Story erzählt?
+Was, wenn es sich bewegt?
 Was, wenn KI nicht nur rechnet, sondern **Weisheit extrahiert**?
-
----
-
-Phase 1 ist live.
-Phase 2 wartet.
-
-Und jeder Pixel zeigt:
-
-**Der beste Code ist der, den du shipst.**
-**Der beste MVP ist der, der atmet.**
 
 ---
 
@@ -62,6 +56,9 @@ Arkify Phase 0:
 3.900 Zeilen Code.
 23 Files.
 4 Agents.
+
+**Der beste Code ist der, den du shipst.**
+**Der beste MVP ist der, der atmet.**
 
 Und eine Frage, die bleibt:
 
@@ -75,7 +72,7 @@ Und eine Frage, die bleibt:
 
 ---
 
-## Variante 2 (noch edgier)
+## Variante 2: "Phase 0 war Müll" (noch edgier)
 
 ---
 
@@ -116,14 +113,6 @@ Was, wenn es denkt?
 
 ---
 
-Phase 1: Shipped.
-Icons sind echt. Story ist da. Grid ist gewachsen.
-
-Phase 2: Wartet.
-Diagramme. Animationen. Intelligenz.
-
----
-
 **Die Wahrheit über MVPs:**
 
 Sie müssen nicht schön sein.
@@ -133,14 +122,13 @@ Sie müssen nur **atmen**.
 
 ---
 
-Arkify Phase 0 → Phase 1:
-Von Boxen zu Icons.
-Von Chaos zu System.
+Arkify Phase 0:
 Von Gedanke zu Beweis.
+In 2 Stunden.
 
 **Und die nächste Frage:**
 
-Wie weit kann ein Gedanke in 2 Stunden gehen?
+Wie weit kann ein Gedanke gehen?
 
 ---
 
@@ -150,7 +138,7 @@ Wie weit kann ein Gedanke in 2 Stunden gehen?
 
 ---
 
-## Variante 3 (minimalistisch + poetisch)
+## Variante 3: Ultra-minimalistisch (poetisch)
 
 ---
 
@@ -170,18 +158,12 @@ Die Frage war:
 
 ---
 
-Es hat geatmet.
+Es atmet.
 
 Und dann:
 Was, wenn es läuft?
 Was, wenn es tanzt?
 Was, wenn es spricht?
-
----
-
-Phase 1: Läuft.
-Phase 2: Tanzt.
-Phase 3: Spricht.
 
 ---
 
@@ -193,5 +175,7 @@ Phase 3: Spricht.
 Arkify.
 
 🔗 [link]
+
+#buildinpublic
 
 ---
