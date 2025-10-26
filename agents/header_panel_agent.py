@@ -1,12 +1,14 @@
 """
 Header Panel Agent
-Shows project name, tagline, and branding (top-left position)
+Shows project name, tagline, and branding (FULL WIDTH top position)
 
 Autonomy Level: 20% (LOWEST)
 - Strict branding requirements (project name MUST be huge)
 - Limited layout decisions
 - Enforced hierarchy (name > tagline)
 - Minimal creative freedom (this is the brand anchor)
+
+SPECIAL: Header gets full width (900x400px) instead of 300x400px
 """
 
 from typing import Dict, Any
@@ -22,11 +24,16 @@ class HeaderPanelAgent(PanelAgentBase):
     - Project name (HUGE, 72px, electric green)
     - Tagline below (wrapped, 18-24px)
     - Clean, minimal, brand-focused
-    - Top-left anchor of entire layout
+    - Full width banner at top (900x400px)
     """
 
-    def __init__(self):
+    def __init__(self, full_width: bool = False):
         super().__init__(agent_id="header_panel_agent")
+        self.full_width = full_width
+
+        # Override panel size for full width mode
+        if self.full_width:
+            self.design_system.panel_size = (900, 400)
 
     def negotiate(self, available_data: Dict[str, Any]) -> PanelAgentMessage:
         """
@@ -51,12 +58,12 @@ class HeaderPanelAgent(PanelAgentBase):
 
     def render(self, assigned_data: Dict[str, Any]) -> Image.Image:
         """
-        Phase 2: Create Header panel (300x400px).
+        Phase 2: Create Header panel (900x400px in full width mode, 300x400px otherwise).
 
         Layout Strategy (STRICT):
         1. Project name (72px, electric green, bold) - TOP
         2. Tagline (18-24px, wrapped, cosmic white) - BELOW NAME
-        3. Center-aligned vertically in panel
+        3. Center-aligned horizontally in panel
         4. Limited autonomy (branding must be consistent)
 
         Adaptive Decisions (20% AUTONOMY):
@@ -73,13 +80,17 @@ class HeaderPanelAgent(PanelAgentBase):
         name = assigned_data.get('name', 'Untitled Project')
         tagline = assigned_data.get('tagline', '')
 
+        # Calculate center X based on panel width
+        panel_width = self.design_system.panel_size[0]
+        center_x = panel_width // 2
+
         # === PROJECT NAME (hero element, STRICT) ===
         # MUST be huge (72px), MUST be electric green, MUST be centered
         name_y = self.align_to_grid(120)  # 120 = 15*8px
 
         self.draw_text(
             draw, name,
-            (150, name_y),  # Center of 300px panel
+            (center_x, name_y),
             font_key='huge',
             color='electric_green',
             align='center'
@@ -92,12 +103,15 @@ class HeaderPanelAgent(PanelAgentBase):
             # AUTONOMY: Choose font size based on tagline length
             tagline_font = self._select_tagline_font(tagline)
 
+            # Calculate max width for tagline (with margins)
+            max_width = panel_width - 64  # 32px margin on each side
+
             # Draw wrapped tagline
             self.draw_wrapped_text(
                 draw, tagline,
-                x=16,  # 2 grid units margin
+                x=32,  # 4 grid units margin
                 y=tagline_y,
-                max_width=268,  # 300 - 32 (margins)
+                max_width=max_width,
                 font_key=tagline_font,
                 color='cosmic_white'
             )
