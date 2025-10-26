@@ -72,7 +72,7 @@ Und eine Frage, die bleibt:
 
 ---
 
-## Variante 2: "Phase 0 war Müll" (noch edgier)
+## Variante 2: "Phase 0 war Müll" (noch edgier) + META
 
 ---
 
@@ -104,6 +104,21 @@ Keine KI-Insights.
 
 ---
 
+Und dann kam die Meta-Frage:
+
+Wenn Arkify Projekt-Breakdowns generiert...
+Kann es seine eigene Entstehung dokumentieren?
+
+---
+
+**Das Bild oben?**
+**Von Arkify. Über Arkify.**
+
+Das Tool zeigt was es kann,
+indem es sich selbst erklärt.
+
+---
+
 Und dann die gefährliche Frage:
 
 Was, wenn die hässlichen Boxen verschwinden?
@@ -125,16 +140,15 @@ Sie müssen nur **atmen**.
 Arkify Phase 0:
 Von Gedanke zu Beweis.
 In 2 Stunden.
+Dokumentiert von sich selbst.
 
-**Und die nächste Frage:**
-
-Wie weit kann ein Gedanke gehen?
+**Wie weit kann ein Gedanke gehen?**
 
 ---
 
 🔗 [link]
 
-#mvp #shipit #arkify
+#mvp #shipit #arkify #meta
 
 ---
 
