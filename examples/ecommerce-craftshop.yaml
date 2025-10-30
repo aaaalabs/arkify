@@ -1,0 +1,32 @@
+project:
+  name: "CraftMart"
+  tagline: "Etsy-style storefront for handmade soap & candles"
+
+  hours: 96
+  cost: 47
+
+  tech_stack:
+    - "Shopify"
+    - "Liquid"
+    - "Zapier"
+    - "Google Analytics"
+
+  learning: "You don't need to build e-commerce from scratch. Shopify + Zapier automates 90%."
+
+extended:
+  results:
+    revenue_first_month: 614
+    returning_customers_percent: 22
+
+  expectations:
+    timeline: "1 week setup"
+    challenges: ["Product photo lighting"]
+
+  reality:
+    timeline: "3 weeks"
+    challenges:
+      - "Shipping cost calculation logic"
+      - "Tax region handling"
+    surprises:
+      - "The about-us story page increased conversion more than discounts"
+      - "Customers loved handwritten thank-you notes"

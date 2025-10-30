@@ -1,0 +1,32 @@
+project:
+  name: "ChronoLite"
+  tagline: "Lightweight date & time helpers for JS devs"
+
+  hours: 33
+  cost: 0
+
+  tech_stack:
+    - "TypeScript"
+    - "Vitest"
+    - "npm"
+    - "GitHub Actions"
+
+  learning: "APIs matter more than features. A small but elegant API beats a large bloated library."
+
+extended:
+  results:
+    stars: 162
+    downloads_monthly: 5800
+
+  expectations:
+    timeline: "5 days"
+    challenges: ["Timezone offset correctness"]
+
+  reality:
+    timeline: "2 weeks + ongoing maintenance"
+    challenges:
+      - "SemVer breaking changes pressure"
+      - "Test matrix for Node versions"
+    surprises:
+      - "Docs quality influenced adoption more than code quality"
+      - "Users contributed timezone data improvements"

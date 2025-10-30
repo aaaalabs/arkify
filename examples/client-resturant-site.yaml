@@ -1,0 +1,32 @@
+project:
+  name: "Mama K's Kitchen Website"
+  tagline: "Menu + table reservation landing page for a local restaurant"
+
+  hours: 21
+  cost: 0
+
+  tech_stack:
+    - "Next.js"
+    - "TailwindCSS"
+    - "Cloudflare Pages"
+    - "Google Maps Embed"
+
+  learning: "Clients care about mobile layout and loading speed — not framework debates."
+
+extended:
+  results:
+    seo_improvement_percent: 63
+    booking_requests_monthly: 41
+
+  expectations:
+    timeline: "3 days"
+    challenges: ["Menu images optimization"]
+
+  reality:
+    timeline: "1 week"
+    challenges:
+      - "Client revision loops"
+      - "Content copywriting"
+    surprises:
+      - "WhatsApp CTA performed better than reservation form"
+      - "Client requested seasonal menu updates post-launch"

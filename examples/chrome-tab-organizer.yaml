@@ -1,0 +1,32 @@
+project:
+  name: "TabTamer"
+  tagline: "Auto-sort and group Chrome tabs by domain + purpose"
+
+  hours: 16
+  cost: 0
+
+  tech_stack:
+    - "Chrome Extensions API"
+    - "JavaScript"
+    - "Manifest v3"
+    - "Local Storage API"
+
+  learning: "Browser permissions UX is critical. Users distrust extensions by default."
+
+extended:
+  results:
+    installs: 1400
+    reviews: 8
+
+  expectations:
+    timeline: "2 days hackathon"
+    challenges: ["Manifest V3 service worker lifecycle"]
+
+  reality:
+    timeline: "4 days"
+    challenges:
+      - "Event listeners unloading"
+      - "Edge compatibility"
+    surprises:
+      - "People wanted keyboard shortcuts, not UI"
+      - "Some users requested Firefox version"

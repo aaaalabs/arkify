@@ -1,0 +1,31 @@
+project:
+  name: "PocketFit"
+  tagline: "Lightweight offline-friendly fitness tracking app"
+
+  hours: 54
+  cost: 0
+
+  tech_stack:
+    - "React Native"
+    - "Expo"
+    - "SQLite"
+    - "Zustand"
+
+  learning: "Local-first apps reduce backend complexity. Offline UX matters more than fancy animations."
+
+extended:
+  results:
+    users: 310
+    active_users: 87
+
+  expectations:
+    timeline: "1 week MVP"
+    challenges: ["State syncing across screens", "Local DB writes"]
+
+  reality:
+    timeline: "2.5 weeks"
+    challenges:
+      - "React Native gesture handling"
+      - "Unexpected app store submission requirements"
+    surprises:
+      - "Users wanted export-to-CSV more than social sharing"
