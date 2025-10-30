@@ -1,0 +1,31 @@
+project:
+  name: "RoomReserve API"
+  tagline: "Simple scheduling + booking API for coworking spaces"
+
+  hours: 78
+  cost: 12
+
+  tech_stack:
+    - "Django"
+    - "Django REST Framework"
+    - "PostgreSQL"
+    - "Redis"
+
+  learning: "Caching is not optional. API performance comes from serialization and query planning."
+
+extended:
+  results:
+    deployments: ["DigitalOcean", "Fly.io"]
+    avg_response_time_ms: 112
+
+  expectations:
+    timeline: "2 weeks"
+    challenges: ["Calendar conflict resolution"]
+
+  reality:
+    timeline: "1 month"
+    challenges:
+      - "Time zone handling"
+      - "N+1 queries in schedule lookups"
+    surprises:
+      - "Customers needed admin dashboard → added Django Admin customization"

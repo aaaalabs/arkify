@@ -1,0 +1,32 @@
+project:
+  name: "BranchSweep"
+  tagline: "CLI tool to clean up merged + stale Git branches"
+
+  hours: 11
+  cost: 0
+
+  tech_stack:
+    - "Python"
+    - "Click"
+    - "GitPython"
+    - "PyPI"
+
+  learning: "Small tools that solve annoyances spread organically inside teams."
+
+extended:
+  results:
+    teams_using_it: 5
+    internal_dev_time_saved_hours_monthly: 14
+
+  expectations:
+    timeline: "One evening"
+    challenges: ["Cross-platform shell execution"]
+
+  reality:
+    timeline: "3 days"
+    challenges:
+      - "Windows path issues"
+      - "Safe delete confirmations"
+    surprises:
+      - "People asked for a --dry-run flag first"
+    
