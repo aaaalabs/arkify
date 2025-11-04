@@ -49,84 +49,58 @@ class MetaRecursionRenderer:
         draw = ImageDraw.Draw(img)
 
         try:
-            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 18)
-            font_label = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 11)
-            font_tiny = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 9)
+            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 22)
+            font_big = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 48)  # For infinity symbol
+            font_label = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 14)
+            font_small = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 11)
         except:
             font_title = ImageFont.load_default()
+            font_big = ImageFont.load_default()
             font_label = ImageFont.load_default()
-            font_tiny = ImageFont.load_default()
+            font_small = ImageFont.load_default()
 
         # Title
         draw.text((20, 20), "META-LEARNING", fill=self._hex_to_rgb(self.colors['text']), font=font_title)
-        draw.text((20, 38), "Oct 26, 05:30-06:00", fill=self._hex_to_rgb(self.colors['dim']), font=font_tiny)
 
-        # Timeline with realizations
-        y = 70
-        line_h = 52
+        # BIG INFINITY SYMBOL (visual anchor)
+        draw.text((width // 2 - 30, 60), "∞", fill=self._hex_to_rgb(self.colors['iteration4']), font=font_big)
 
-        # Iteration 1: Misunderstanding
-        self._draw_iteration(draw, 20, y,
-            "05:30", "Thought: Arkify = Documentation",
-            "Built Phase 2 with mock data",
-            self.colors['iteration1'], font_label, font_tiny)
+        # Simplified timeline - just 3 KEY moments
+        y = 130
+        line_h = 55
 
-        # Iteration 2: Correction
-        self._draw_iteration(draw, 20, y + line_h,
-            "05:40", "User: 'Never use mock data'",
-            "Realized: Need real git commits",
-            self.colors['iteration2'], font_label, font_tiny)
+        # Moment 1: The Mistake
+        draw.text((20, y), "1. Built with mock data",
+                 fill=self._hex_to_rgb(self.colors['iteration1']), font=font_label)
+        draw.text((20, y + 18), "User: ❌ Never use mock",
+                 fill=self._hex_to_rgb(self.colors['text']), font=font_small)
 
-        # Iteration 3: First meta-insight
-        self._draw_iteration(draw, 20, y + line_h * 2,
-            "05:50", "User: 'Mistake IS research'",
-            "Realized: Failures are features",
-            self.colors['iteration3'], font_label, font_tiny)
+        # Arrow
+        draw.text((35, y + 38), "↓", fill=self._hex_to_rgb(self.colors['dim']), font=font_label)
 
-        # Iteration 4: Full recursion
-        self._draw_iteration(draw, 20, y + line_h * 3,
-            "05:55", "User: 'You research yourself'",
-            "Realized: Arkify = Self-research journal",
-            self.colors['iteration4'], font_label, font_tiny)
+        # Moment 2: The Realization
+        y2 = y + line_h
+        draw.text((20, y2), "2. Mistake IS research",
+                 fill=self._hex_to_rgb(self.colors['iteration3']), font=font_label)
+        draw.text((20, y2 + 18), "Failures = Features",
+                 fill=self._hex_to_rgb(self.colors['text']), font=font_small)
 
-        # Current moment (THIS)
-        y_current = y + line_h * 4
-        draw.rectangle([(20, y_current), (width - 20, y_current + 48)],
+        # Arrow
+        draw.text((35, y2 + 38), "↓", fill=self._hex_to_rgb(self.colors['dim']), font=font_label)
+
+        # Moment 3: The Meta-Insight (THIS PANEL)
+        y3 = y2 + line_h
+        draw.rectangle([(20, y3), (width - 20, y3 + 60)],
                       outline=self._hex_to_rgb(self.colors['iteration4']), width=2)
 
-        draw.text((30, y_current + 8), "06:00 NOW",
+        draw.text((30, y3 + 10), "3. This panel →",
                  fill=self._hex_to_rgb(self.colors['iteration4']), font=font_label)
-        draw.text((30, y_current + 22), "Building panel about",
-                 fill=self._hex_to_rgb(self.colors['text']), font=font_tiny)
-        draw.text((30, y_current + 32), "learning what Arkify is",
-                 fill=self._hex_to_rgb(self.colors['text']), font=font_tiny)
-
-        # The punchline
-        draw.text((20, height - 40), "This panel documents",
-                 fill=self._hex_to_rgb(self.colors['dim']), font=font_tiny)
-        draw.text((20, height - 28), "its own creation.",
-                 fill=self._hex_to_rgb(self.colors['iteration4']), font=font_label)
-        draw.text((20, height - 14), "∞ Meta-recursion",
-                 fill=self._hex_to_rgb(self.colors['dim']), font=font_tiny)
+        draw.text((30, y3 + 28), "documents itself",
+                 fill=self._hex_to_rgb(self.colors['text']), font=font_label)
+        draw.text((30, y3 + 44), "being created",
+                 fill=self._hex_to_rgb(self.colors['text']), font=font_small)
 
         return img
-
-    def _draw_iteration(self, draw, x, y, time, thought, action, color, font_label, font_tiny):
-        """Draw one iteration/realization"""
-        # Time badge
-        draw.rectangle([(x, y), (x + 45, y + 16)], fill=self._hex_to_rgb(color))
-        draw.text((x + 4, y + 3), time, fill='#000000', font=font_tiny)
-
-        # Thought
-        draw.text((x + 50, y), thought,
-                 fill=self._hex_to_rgb(self.colors['text']), font=font_tiny)
-
-        # Action/Result
-        draw.text((x + 50, y + 12), action,
-                 fill=self._hex_to_rgb(self.colors['dim']), font=font_tiny)
-
-        # Arrow to next
-        draw.text((x + 8, y + 24), "↓", fill=self._hex_to_rgb(color), font=font_label)
 
     def _hex_to_rgb(self, hex_color):
         """Convert hex to RGB"""

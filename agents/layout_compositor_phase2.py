@@ -110,8 +110,8 @@ class LayoutCompositorPhase2:
         draw = ImageDraw.Draw(img)
 
         try:
-            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 48)
-            font_sub = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 18)
+            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 52)  # Slightly bigger
+            font_sub = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 20)  # More readable
         except:
             font_title = ImageFont.load_default()
             font_sub = ImageFont.load_default()
@@ -204,54 +204,65 @@ class LayoutCompositorPhase2:
         draw = ImageDraw.Draw(panel)
 
         try:
-            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 16)
-            font_big = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 48)
-            font_label = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 14)
+            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 20)
+            font_big = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 56)  # Even bigger
+            font_label = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 15)
         except:
             font_title = font_big = font_label = ImageFont.load_default()
 
         draw.text((20, 20), "RESULTS", fill=self._hex_to_rgb(self.colors['text']), font=font_title)
 
         results = project_data.get('results', {})
-        y = 70
+        y = 65
 
         # New agents
         agents = results.get('new_agents', 3)
         draw.text((20, y), str(agents), fill=self._hex_to_rgb(self.colors['accent']), font=font_big)
-        draw.text((20, y + 50), "new agents", fill=self._hex_to_rgb(self.colors['text']), font=font_label)
+        draw.text((20, y + 60), "new agents", fill=self._hex_to_rgb(self.colors['text']), font=font_label)
 
         # Commits analyzed
         commits = project_data.get('meta', {}).get('commits_analyzed', 28)
-        draw.text((20, y + 90), str(commits), fill=self._hex_to_rgb(self.colors['accent']), font=font_big)
-        draw.text((20, y + 140), "commits analyzed", fill=self._hex_to_rgb(self.colors['text']), font=font_label)
+        draw.text((20, y + 95), str(commits), fill=self._hex_to_rgb(self.colors['accent']), font=font_big)
+        draw.text((20, y + 155), "commits analyzed", fill=self._hex_to_rgb(self.colors['text']), font=font_label)
 
         # Decision paths
         decisions = results.get('decision_paths_extracted', 5)
-        draw.text((20, y + 180), str(decisions), fill=self._hex_to_rgb(self.colors['accent']), font=font_big)
-        draw.text((20, y + 230), "decision paths", fill=self._hex_to_rgb(self.colors['text']), font=font_label)
+        draw.text((20, y + 190), str(decisions), fill=self._hex_to_rgb(self.colors['accent']), font=font_big)
+        draw.text((150, y + 190), "paths", fill=self._hex_to_rgb(self.colors['text']), font=font_big)
 
         return panel
 
     def _render_tech_stack(self, project_data):
-        """Render tech stack panel"""
+        """Render tech stack panel - badge style"""
         panel = Image.new('RGB', (300, 300), self._hex_to_rgb(self.colors['bg']))
         draw = ImageDraw.Draw(panel)
 
         try:
-            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 16)
-            font_label = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 14)
+            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 20)
+            font_tech = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 18)
         except:
-            font_title = font_label = ImageFont.load_default()
+            font_title = font_tech = ImageFont.load_default()
 
         draw.text((20, 20), "TECH STACK", fill=self._hex_to_rgb(self.colors['text']), font=font_title)
 
         tech_stack = project_data.get('tech_stack', ['Python', 'PIL', 'cairosvg', 'Git'])
 
+        # Badge colors for visual hierarchy
+        badge_colors = ['#3B82F6', '#06FFA5', '#FFD93D', '#E63946']
+
         y = 70
-        for tech in tech_stack[:4]:  # Max 4
-            # Icon (simplified - just text for now)
-            draw.text((20, y), f"• {tech}", fill=self._hex_to_rgb(self.colors['text']), font=font_label)
-            y += 50
+        for i, tech in enumerate(tech_stack[:4]):  # Max 4
+            # Draw badge background
+            badge_color = badge_colors[i % len(badge_colors)]
+            draw.rectangle(
+                [(20, y), (260, y + 45)],
+                fill=self._hex_to_rgb(badge_color),
+                outline=None
+            )
+
+            # Tech name in badge
+            draw.text((30, y + 12), tech, fill='#000000', font=font_tech)
+            y += 60
 
         return panel
 
@@ -261,22 +272,24 @@ class LayoutCompositorPhase2:
         draw = ImageDraw.Draw(panel)
 
         try:
-            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 16)
-            font_label = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 14)
-            font_big = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 32)
+            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 20)
+            font_label = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 15)
+            font_big = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 40)  # Bigger
+            font_worth = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 24)  # For punchline
         except:
-            font_title = font_label = font_big = ImageFont.load_default()
+            font_title = font_label = font_big = font_worth = ImageFont.load_default()
 
         draw.text((20, 20), "REALITY", fill=self._hex_to_rgb(self.colors['text']), font=font_title)
 
-        # Expected vs Actual
-        draw.text((20, 70), "Expected: 6h", fill=self._hex_to_rgb('#6B7280'), font=font_label)
-        draw.text((20, 95), "Actual: 12h", fill=self._hex_to_rgb(self.colors['accent']), font=font_big)
+        # Expected vs Actual - TIME
+        draw.text((20, 70), "Expected:", fill=self._hex_to_rgb('#6B7280'), font=font_label)
+        draw.text((20, 90), "6h", fill=self._hex_to_rgb('#6B7280'), font=font_big)
 
-        draw.text((20, 150), "Expected: Easy", fill=self._hex_to_rgb('#6B7280'), font=font_label)
-        draw.text((20, 175), "Actual: Meta ∞", fill=self._hex_to_rgb(self.colors['accent']), font=font_big)
+        draw.text((20, 140), "Actual:", fill=self._hex_to_rgb(self.colors['text']), font=font_label)
+        draw.text((20, 160), "12h", fill=self._hex_to_rgb(self.colors['accent']), font=font_big)
 
-        draw.text((20, 250), "Worth it.", fill=self._hex_to_rgb(self.colors['text']), font=font_label)
+        # The punchline (bigger, more prominent)
+        draw.text((20, 240), "Worth it.", fill=self._hex_to_rgb(self.colors['accent']), font=font_worth)
 
         return panel
 

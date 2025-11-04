@@ -13,7 +13,7 @@ class DecisionPathRenderer:
 
     def __init__(self):
         self.colors = {
-            'fail': '#FF006E',      # Neon magenta
+            'fail': '#E63946',      # Softer red (was too bright magenta)
             'success': '#06FFA5',   # Neon green
             'bg_dark': '#22223B',   # Dark navy
             'text': '#F2F4F8',      # Off-white
@@ -40,25 +40,27 @@ class DecisionPathRenderer:
         img = Image.new('RGB', (width, height), self._hex_to_rgb(self.colors['bg_dark']))
         draw = ImageDraw.Draw(img)
 
-        # Load fonts
+        # Load fonts - INCREASED SIZES for readability
         try:
-            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 20)
-            font_label = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 14)
-            font_small = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 11)
+            font_title = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 22)
+            font_label = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 16)
+            font_small = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 13)
+            font_icon = ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', 32)  # Big icons
         except:
             font_title = ImageFont.load_default()
             font_label = ImageFont.load_default()
             font_small = ImageFont.load_default()
+            font_icon = ImageFont.load_default()
 
         # Title
         title = decision_data.get('name', 'DECISION PATH').upper()
         draw.text((20, 20), title, fill=self._hex_to_rgb(self.colors['text']), font=font_title)
 
-        # Draw attempts (max 4)
-        attempts = decision_data.get('attempts', [])[:4]
-        y_start = 80
-        box_height = 60
-        spacing = 15
+        # Draw attempts (max 3 for better readability in small space)
+        attempts = decision_data.get('attempts', [])[:3]
+        y_start = 70
+        box_height = 70  # Taller boxes for better text fit
+        spacing = 12
 
         for i, attempt in enumerate(attempts):
             y = y_start + i * (box_height + spacing)
@@ -74,31 +76,32 @@ class DecisionPathRenderer:
                 outline=None
             )
 
-            # Try number
-            try_text = f"TRY {i+1}"
-            draw.text((30, y + 8), try_text, fill='#000000', font=font_label)
+            # Try number (smaller, top-left)
+            try_text = f"{i+1}"
+            draw.text((30, y + 10), try_text, fill='#00000099', font=font_small)
 
-            # Approach
-            approach = attempt.get('approach', '')[:25]  # Truncate
-            draw.text((30, y + 25), approach, fill='#000000', font=font_small)
+            # Approach (main text, prominent)
+            approach = attempt.get('approach', '')[:40]  # Show more text
+            draw.text((55, y + 8), approach, fill='#000000', font=font_label)
 
-            # Result icon
+            # Result icon (BIG and prominent)
             icon = '✅' if is_success else '❌'
-            draw.text((width - 50, y + 15), icon, fill='#000000', font=font_title)
+            draw.text((width - 55, y + 18), icon, fill='#000000', font=font_icon)
 
-            # Time
-            time = attempt.get('time', '')
-            draw.text((30, y + 42), time, fill='#00000088', font=font_small)
+            # Result text below approach
+            result = attempt.get('result', '').split(' - ')[-1] if ' - ' in attempt.get('result', '') else attempt.get('result', '')
+            result = result[:20]  # Truncate result
+            draw.text((55, y + 32), result, fill='#00000088', font=font_small)
 
             # Arrow to next (if not last)
             if i < len(attempts) - 1:
                 arrow_y = y + box_height + spacing // 2
-                draw.text((width // 2 - 10, arrow_y - 8), '→',
-                         fill=self._hex_to_rgb(self.colors['arrow']), font=font_title)
+                draw.text((width // 2 - 10, arrow_y - 10), '↓',
+                         fill=self._hex_to_rgb(self.colors['arrow']), font=font_label)
 
-        # Bottom summary
-        total_time = decision_data.get('learning', 'See decision journey')
-        draw.text((20, height - 40), total_time,
+        # Bottom summary (learning)
+        learning = decision_data.get('learning', 'See decision journey')
+        draw.text((20, height - 35), learning,
                  fill=self._hex_to_rgb(self.colors['text']), font=font_small)
 
         return img
