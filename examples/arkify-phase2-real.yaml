@@ -1,0 +1,96 @@
+project:
+  name: "Arkify Phase 2"
+  tagline: "Architecture meets Story - How the system thinks"
+
+  # Phase 2 focus: Decision paths, not just results
+  hours: 12
+  cost: 0
+
+  tech_stack:
+    - "Python"
+    - "PIL"
+    - "cairosvg"
+    - "Mermaid"
+
+  # What we're building in Phase 2
+  results:
+    panels: 9
+    agents: 6
+    decisions_visualized: 3
+    failed_paths_shown: 8
+
+  # The 3 big decision stories
+  decisions:
+
+    # Decision 1: Icon Rendering
+    - name: "Real Brand Icons"
+      attempts:
+        - approach: "Colored PIL rectangles"
+          result: "FAIL - Too ugly, not recognizable"
+          time: "30min"
+        - approach: "Download PNGs manually"
+          result: "FAIL - Not scalable, manual work"
+          time: "1h"
+        - approach: "SimpleIcons CDN"
+          result: "FAIL - PIL can't render SVG"
+          time: "2h"
+        - approach: "cairosvg converter"
+          result: "SUCCESS - Renders perfect"
+          time: "1h"
+      learning: "4 tries. +1 dependency. Worth it."
+
+    # Decision 2: Contrast Fix
+    - name: "WCAG Compliance"
+      attempts:
+        - approach: "Grey on dark grey"
+          result: "FAIL - Contrast 2:1, unreadable"
+          time: "Iteration 1-2"
+        - approach: "Light grey on dark"
+          result: "FAIL - Still 3:1, barely passing"
+          time: "Iteration 3"
+        - approach: "Pure white on navy"
+          result: "SUCCESS - 7.12:1, perfect"
+          time: "Iteration 4"
+      learning: "Contrast isn't aesthetic. It's math."
+
+    # Decision 3: Grid System
+    - name: "8px Alignment"
+      attempts:
+        - approach: "Eyeball it"
+          result: "FAIL - Looks aligned, isn't"
+          time: "Iteration 1-3"
+        - approach: "16px grid"
+          result: "FAIL - Too coarse, spacing off"
+          time: "Iteration 4"
+        - approach: "8px grid system"
+          result: "SUCCESS - Pixel-perfect"
+          time: "Iteration 5-7"
+      learning: "You can't see 2px. But users feel it."
+
+  # Panel autonomy levels
+  agent_autonomy:
+    - agent: "Header Agent"
+      autonomy: 40
+      why: "Fixed structure, variable content"
+    - agent: "Results Agent"
+      autonomy: 30
+      why: "Numbers + formatting rules"
+    - agent: "Tech Stack Agent"
+      autonomy: 60
+      why: "Icon fetch + layout creativity"
+    - agent: "Timeline Agent"
+      autonomy: 50
+      why: "Data viz with style freedom"
+    - agent: "Reality Agent"
+      autonomy: 80
+      why: "Story composition, full control"
+    - agent: "Learning Agent"
+      autonomy: 90
+      why: "Wisdom extraction, pure creativity"
+
+  # Meta
+  learning: "Architecture is decisions. Decisions are stories. Show the fails."
+
+  links:
+    github: "https://github.com/aaaalabs/arkify"
+    web: "https://arkify.app"
