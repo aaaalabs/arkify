@@ -83,7 +83,7 @@ class RealityPanelAgent(PanelAgentBase):
         # === TITLE (grid-aligned) ===
         title_y = self.align_to_grid(24)  # 24 = 3*8px
         self.draw_text(
-            draw, "REALITY", (150, title_y),  # Center of 300px panel
+            draw, "REALITÄT", (150, title_y),  # Center of 300px panel
             font_key='small_bold',
             color='electric_green',
             align='center'

@@ -83,7 +83,7 @@ class TimelinePanelAgent(PanelAgentBase):
         # === TITLE (grid-aligned) ===
         title_y = self.align_to_grid(24)  # 24 = 3*8px
         self.draw_text(
-            draw, "TIMELINE", (150, title_y),  # Center of 300px panel
+            draw, "TIMELINE", (150, title_y),  # Center of 300px panel (keep English - international term)
             font_key='small_bold',
             color='electric_green',
             align='center'
@@ -165,7 +165,7 @@ class TimelinePanelAgent(PanelAgentBase):
             progress_label_y = progress_y - 20
 
             self.draw_text(
-                draw, f"{iterations} iterations",
+                draw, f"{iterations} Iterationen",
                 (150, progress_label_y),
                 font_key='tiny',
                 color='text_dim',

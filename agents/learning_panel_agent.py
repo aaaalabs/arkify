@@ -81,7 +81,7 @@ class LearningPanelAgent(PanelAgentBase):
         # === TITLE (grid-aligned) ===
         title_y = self.align_to_grid(24)  # 24 = 3*8px
         self.draw_text(
-            draw, "LEARNED", (150, title_y),  # Center of 300px panel
+            draw, "GELERNT", (150, title_y),  # Center of 300px panel
             font_key='small_bold',
             color='electric_green',
             align='center'
@@ -110,9 +110,10 @@ class LearningPanelAgent(PanelAgentBase):
         if bullets:
             bullets_y = learning_y + learning_height + self.align_to_grid(24)  # 24px gap
 
-            # Show label
+            # Show label (translate to German)
+            bullet_label_de = "Surprises:" if "Surprises" in bullet_label else "Challenges:"
             self.draw_text(
-                draw, bullet_label,
+                draw, bullet_label_de,
                 (16, bullets_y),
                 font_key='tiny',
                 color='text_dim',

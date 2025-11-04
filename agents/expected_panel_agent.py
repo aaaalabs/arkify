@@ -80,7 +80,7 @@ class ExpectedPanelAgent(PanelAgentBase):
         # === TITLE (grid-aligned) ===
         title_y = self.align_to_grid(24)  # 24 = 3*8px
         self.draw_text(
-            draw, "EXPECTED", (150, title_y),  # Center of 300px panel
+            draw, "ERWARTET", (150, title_y),  # Center of 300px panel
             font_key='small_bold',
             color='expected_grey',
             align='center'
