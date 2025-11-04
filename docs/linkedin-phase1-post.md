@@ -2,30 +2,32 @@
 
 ---
 
-## Variante 1: "5 Versuche"
+## Variante 1: "7 Versuche"
 
 ---
 
-5 Versuche.
+7 Versuche.
 
 Das war nötig, um von "funktioniert" zu "einfach" zu kommen.
 
 ---
 
 Phase 1 sollte 2-3 Stunden dauern.
-Hat 8 Stunden gedauert.
-Mit 5 Iterationen.
+Hat 10 Stunden gedauert.
+Mit 7 Iterationen.
 Jede 2x besser als die vorherige.
 
 Weil einfach schwer ist.
 
 ---
 
-**Iteration 1:** Text overflows everywhere
-**Iteration 2:** Fixed overflows, contrast too low
-**Iteration 3:** High contrast, too dense
-**Iteration 4:** Good density, misaligned grid
-**Iteration 5:** Pixel-perfect. Finally simple.
+**7 Iterationen. 4 davon Fails.**
+
+Contrast: 2:1 → 7.12:1
+Von kaum lesbar zu WCAG compliant.
+
+Jede Iteration: Text besser, Grid cleaner, Spacing präziser.
+Bis nichts mehr zu entfernen war.
 
 ---
 
@@ -40,10 +42,10 @@ sondern **wie viele Versuche es gebraucht hat**?
 Von Arkify. Über Arkify.
 
 Inklusive:
-- 23 commits
-- 1609 Lines of Code
-- **3 fails**
-- **5 iterations to simplicity**
+- 27 commits
+- 3625 Lines of Code
+- **4 fails**
+- **7 iterations to simplicity**
 
 Das Tool dokumentiert seine eigenen Fails.
 
@@ -69,11 +71,11 @@ Phase 1: Beweis dass es schwer war
 
 ---
 
-## Variante 2: "3 Fails" (noch schärfer)
+## Variante 2: "4 Fails" (noch schärfer)
 
 ---
 
-3 Fails.
+4 Fails.
 
 Ich hab sie nicht rausgeschnitten.
 Ich hab sie ins Bild gepackt.
@@ -82,28 +84,32 @@ Ich hab sie ins Bild gepackt.
 
 Phase 1 war nicht schön.
 
-Version 1: Text overflow disaster
-Version 2: Contrast fail
-Version 3: Too dense, unreadable
+7 Iterationen.
+4 davon Fails.
 
-Fail. Fail. Fail.
+Contrast zu niedrig.
+Grid misaligned.
+Text overflows.
+Spacing chaos.
+
+Fail. Fail. Fail. Fail.
 
 ---
 
-Und dann Iteration 4.
+Und dann Iteration 5.
 Besser.
 
-Iteration 5.
+Iteration 7.
 Einfach.
 
 ---
 
 **Das Paradox:**
 
-0 LOC → 1609 LOC
+0 LOC → 3625 LOC
 Aber einfacher geworden.
 
-2-3 Stunden geplant → 8 Stunden Realität
+2-3 Stunden geplant → 10 Stunden Realität
 Aber besser geworden.
 
 Jede Iteration 2x besser als die vorherige.
@@ -118,10 +124,10 @@ sondern **wie oft ich gescheitert bin**?
 ---
 
 **Das Bild oben zeigt:**
-- 23 commits (die Arbeit)
-- 1609 LOC (der Code)
-- 3 fails (die Wahrheit)
-- 5 iterations (der Weg)
+- 27 commits (die Arbeit)
+- 3625 LOC (der Code)
+- 4 fails (die Wahrheit)
+- 7 iterations (der Weg)
 
 Arkify dokumentiert nicht nur Projekte.
 Es dokumentiert **Iteration**.
@@ -161,26 +167,21 @@ Zu Version 1. Zu 2. Zu 3. Zu 4.
 
 ---
 
-**Version 1:**
+**7 Iterationen. 4 Rejections.**
+
+"Contrast 2:1. Rejected."
+"Grid misaligned. Rejected."
 "Text overflows. Rejected."
-
-**Version 2:**
-"Contrast too low. Rejected."
-
-**Version 3:**
-"Too dense. Rejected."
-
-**Version 4:**
-"Grid misalignment. Rejected."
+"Spacing inconsistent. Rejected."
 
 ---
 
-**Version 5:**
-"...Simple. Ship it."
+**Iteration 7:**
+"Contrast 7.12:1. 8px grid. Clean. ...Ship it."
 
 ---
 
-5 Iterationen.
+7 Iterationen.
 Jede 2x besser.
 Bis nichts mehr zu entfernen war.
 
@@ -193,10 +194,10 @@ Was, wenn ich Jony Ive's Kritik ins Bild packe?
 ---
 
 **Das Bild oben dokumentiert:**
-- Die 5 Apple-Quality Iterations
-- Die 3 Fails bevor es funktionierte
-- Die 8 Stunden statt geplante 2-3
-- Die 1609 Lines of Code für "Einfachheit"
+- Die 7 Apple-Quality Iterations
+- Die 4 Fails bevor es funktionierte
+- Die 10 Stunden statt geplante 2-3
+- Die 3625 Lines of Code für "Einfachheit"
 
 Arkify kritisiert sich selbst.
 Nach Jony Ive Standards.
@@ -205,13 +206,13 @@ Nach Jony Ive Standards.
 
 **Das Paradox:**
 
-Mehr Code (1609 LOC)
+Mehr Code (3625 LOC)
 Für mehr Einfachheit.
 
-Mehr Zeit (8h statt 2h)
+Mehr Zeit (10h statt 2h)
 Für mehr Klarheit.
 
-Mehr Iterationen (5 statt 1)
+Mehr Iterationen (7 statt 1)
 Für weniger Chaos.
 
 ---
@@ -244,10 +245,10 @@ Phase 1: Einfach
 ---
 
 EXPECTED:
-2-3 hours for basic layout
+2-3 Stunden für basic Layout
 
 REALITY:
-8 hours with 5 quality iterations
+10 Stunden mit 7 Quality Iterationen
 
 ---
 
@@ -265,18 +266,17 @@ Zwischen Phase 0 und Phase 1.
 - Ship it
 
 **Was wirklich passiert ist:**
-- Iteration 1: Text overflow chaos
-- Iteration 2: Contrast failure
-- Iteration 3: Density nightmare
-- Iteration 4: Grid misalignment hell
-- Iteration 5: Finally. Simple.
+- 7 Iterationen
+- 4 davon Fails
+- Contrast: 2:1 → 7.12:1
+- Von kaum lesbar zu pixel-perfect
 
 ---
 
-23 commits.
-1609 Lines of Code.
-3 documented fails.
-5 iterations to simplicity.
+27 commits.
+3625 Lines of Code.
+4 dokumentierte Fails.
+7 Iterationen bis zur Einfachheit.
 
 ---
 
@@ -289,8 +289,8 @@ sondern zum Feature mache?
 
 **Das Bild oben zeigt beides:**
 
-EXPECTED: 2-3 hours
-REALITY: 8 hours, 5 iterations
+EXPECTED: 2-3 Stunden
+REALITY: 10 Stunden, 7 Iterationen
 
 Kein Bullshit.
 Keine "shipped in one afternoon" Story.
@@ -301,7 +301,7 @@ Die Wahrheit:
 ---
 
 Phase 1 ist nicht besser weil es komplexer ist.
-Es ist besser weil es **5 Mal gescheitert ist**.
+Es ist besser weil es **7 Mal iteriert wurde**.
 
 Jede Iteration 2x besser.
 Bis einfach übrig blieb.
