@@ -318,17 +318,82 @@ Design for: **Scroll Stop → Curiosity → Save → Share**
 
 **Arkify builds Arkify.** This project documents its own development journey.
 
+### Absolute Rules
+
 - ❌ **NEVER use fictional example projects** (TaskFlow AI, TodoApp, etc.)
-- ✅ **ONLY use real data from the Arkify project itself**
+- ❌ **NEVER invent data, timelines, or decisions**
+- ❌ **NEVER use placeholder/example numbers**
+- ✅ **ONLY use real data from actual logs, reasonings, and git commits**
 - ✅ All YAML files must contain factual data about Arkify's actual development
 - ✅ Hours worked, costs incurred, challenges faced - all must be REAL
 - ✅ The project showcases itself by visualizing its own creation story
 
-**Example Data Sources:**
-- Git commit history (actual hours/days worked)
-- Real tech stack used (Python, PIL, Claude API, etc.)
-- Actual challenges encountered during development
-- Real learnings from building the system
+### Real Data Sources (ONLY These)
+
+**1. Git Commit History**
+```bash
+git log --oneline --all
+git log --stat
+git log --since="2025-10-22"
+```
+- Actual commit messages
+- Real timestamps
+- Actual file changes (LOC)
+- Real commit counts
+
+**2. Code Reasoning/Comments**
+- Actual comments in code explaining decisions
+- Real TODO comments showing failed approaches
+- Actual docstrings documenting "why"
+
+**3. Development Logs**
+- Actual error messages encountered
+- Real iteration counts from git history
+- Actual decision trees from code comments
+
+**4. This Conversation**
+- Real decisions made during development
+- Actual "try X → failed → try Y → worked" sequences
+- Real time estimates vs actual time (from session timestamps)
+
+### Example: Phase 2 Decision Data
+
+**❌ WRONG (Mock data):**
+```yaml
+decisions:
+  - name: "Icon Rendering"
+    attempts: ["Try 1", "Try 2", "Try 3"]  # Made up
+```
+
+**✅ CORRECT (Real data from git/conversation):**
+```yaml
+decisions:
+  - name: "Icon Rendering"
+    attempts:
+      - commit: "2729f2e"
+        approach: "Colored PIL boxes"
+        result: "FAIL - removed in next commit"
+      - commit: "4049175"
+        approach: "cairosvg for real SVG icons"
+        result: "SUCCESS - still in codebase"
+```
+
+### Enforcement
+
+Before adding ANY data to YAML:
+1. **Ask:** "Where did this number/decision come from?"
+2. **Verify:** Can I point to a git commit, log entry, or conversation message?
+3. **Document:** Reference the source (commit hash, timestamp, log line)
+
+If you cannot answer "yes" to all three: **DO NOT USE THE DATA.**
+
+### Why This Matters
+
+**Mock data = fake story = no credibility**
+**Real data = authentic journey = trust + learning**
+
+The power of Arkify is showing **reality**, including fails.
+Real fails from real git commits are more valuable than perfect mock data.
 
 This creates authentic, credible project breakdowns that demonstrate Arkify's capabilities using its own real development data.
 
