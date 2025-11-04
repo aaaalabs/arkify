@@ -1,0 +1,87 @@
+# Arkify Phase 2.1 - Real Data
+# Story: "Your Mistakes ARE Your Research"
+# All data from actual conversation and git commits
+
+project:
+  name: "Arkify Phase 2.1"
+  tagline: "Your Mistakes ARE Your Research"
+
+  # Tech Stack - will fetch REAL brand icons
+  tech_stack:
+    - "Python"      # Python logo via SimpleIcons
+    - "Anthropic"   # Claude/Anthropic logo
+    - "GitHub"      # GitHub logo
+    - "PIL"         # PIL/Pillow (fallback if no icon)
+
+  # Meta Data
+  meta:
+    commits_analyzed: 28
+    decision_paths_extracted: 5
+    hours_total: 12
+
+  # Story Arc Data (for panels)
+  story:
+    panel1_mistake:
+      title: "Built with mock data"
+      subtitle: "Created Phase 2 with invented decision paths. User caught it immediately."
+      gradient: "fail"
+      emoji: "❌"
+
+    panel2_catch:
+      title: "User: Never use mock"
+      subtitle: "Replaced ALL with real git commits. 28 commits analyzed, 100% traceable data."
+      gradient: "success"
+      emoji: "✅"
+
+    panel3_insight:
+      title: "Mistake IS research"
+      subtitle: "The failure became a decision path to visualize. Arkify documents its own learning."
+      gradient: "insight"
+      emoji: "💡"
+
+    panel4_tech:
+      # Handled by tech_stack_panel_renderer with real icons
+
+    panel5_numbers:
+      number: "28"
+      title: "Commits analyzed"
+      subtitle: "5 decision paths extracted from real git history"
+      gradient: "dark"
+
+    panel6_meta:
+      title: "This panel documents itself"
+      subtitle: "Infinite recursion as a feature. You are a researcher of your own thoughts."
+      gradient: "meta"
+      emoji: "∞"
+
+  # Real Learning from Phase 2 → 2.1 Evolution
+  evolution:
+    phase2_issues:
+      - "900x1200px / 9 panels = 300x300px each (too small)"
+      - "No real brand icons (despite having IconFetcher)"
+      - "Flat colors only (no gradients)"
+      - "Too dense, no whitespace"
+      - "No clear viral hook"
+
+    phase21_solutions:
+      - "1200x1600px / 6 panels = 600x533px each (+100% space)"
+      - "Real brand icons via IconFetcher + cairosvg"
+      - "Smooth gradients (Canva 2025 style)"
+      - "Generous whitespace, story-driven"
+      - "Clear hook: 'Your Mistakes ARE Your Research'"
+
+  # Viral Hook Strategy
+  viral_hook:
+    main: "Your Mistakes ARE Your Research"
+    why_it_works:
+      - "Relatable (everyone makes mistakes)"
+      - "Surprising (mistakes usually = bad)"
+      - "Actionable (reframe failures as data)"
+      - "Memorable (simple statement)"
+      - "Shareable (makes people look insightful)"
+
+# Design Philosophy: Canva 2025
+# - Shape Theory: Bold shapes, modular
+# - Future in Motion: Gradients, dynamic typography
+# - Opulence Era: Minimal + rich details + generous whitespace
+# - Analog Meets AI: Handcraft + AI precision
