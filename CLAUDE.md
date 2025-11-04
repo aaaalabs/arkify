@@ -8,7 +8,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Domain:** arkify.app
 
-**Current Status:** Planning phase - the repository contains architectural documentation but no implementation yet.
+**Philosophy:**
+
+> **"You are a researcher of your own thoughts, and Arkify is your journal."**
+
+Arkify doesn't document projects.
+Arkify researches decision-making processes.
+
+Every commit is a thought.
+Every iteration is an experiment.
+Every fail is a data point.
+
+The tool doesn't just generate outputs—it makes thinking visible.
+
+**Current Status:** Phase 2 in development - Building agents that visualize decision paths, not just results.
 
 ---
 
