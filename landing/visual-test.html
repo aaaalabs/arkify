@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Test - Side by Side</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #1a1a1a;
+            font-family: monospace;
+            color: white;
+            padding: 20px;
+        }
+        .test-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .test-frame {
+            border: 3px solid #FF0080;
+            background: #0F0F1E;
+            position: relative;
+        }
+        .test-frame h2 {
+            background: #FF0080;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .viewport-sim {
+            height: 800px;
+            overflow-y: auto;
+            position: relative;
+            background: #0F0F1E;
+        }
+        .content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .content-fixed {
+            padding: 2rem;
+            padding-bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00D9FF, #FF0080);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .tagline {
+            font-size: 1.1rem;
+            color: #9D4EDD;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .container { max-width: 600px; width: 100%; }
+        .infographic {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+        }
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #8E8E93;
+            font-size: 0.9rem;
+        }
+        a { color: #00D9FF; text-decoration: none; }
+        .viewport-marker {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: yellow;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        .viewport-marker::after {
+            content: '← VIEWPORT BOTTOM (800px)';
+            position: absolute;
+            right: 10px;
+            top: -20px;
+            color: yellow;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .stats {
+            background: rgba(255, 0, 128, 0.2);
+            border: 2px solid #FF0080;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .stats h3 {
+            color: #00D9FF;
+            margin-bottom: 10px;
+        }
+        .stats pre {
+            font-size: 12px;
+            color: #00FF00;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 20px; color: #FF0080;">BOTTOM CUTOFF VISUAL TEST</h1>
+
+    <div class="stats">
+        <h3>Test Setup</h3>
+        <pre>Viewport Height: 800px (simulated typical desktop)
+Image Dimensions: 1200x1600px
+Max Container Width: 600px (scaled for side-by-side)
+Expected Image Render: 600x800px (maintains 3:4 aspect ratio)
+
+SCROLL DOWN in each frame to see if bottom is visible!</pre>
+    </div>
+
+    <div class="test-container">
+        <div class="test-frame">
+            <h2>❌ CURRENT (min-height: 100vh)</h2>
+            <div class="viewport-sim" id="viewport-current">
+                <div class="viewport-marker" style="top: 800px;"></div>
+                <div class="content">
+                    <h1>ARKIFY</h1>
+                    <p class="tagline">∞ This image shows the decisions that created it</p>
+                    <div class="container">
+                        <img src="arkify-v4.png" alt="Arkify" class="infographic">
+                    </div>
+                    <div class="footer">
+                        <p style="background: rgba(255,0,0,0.3); padding: 10px; border-radius: 5px;">
+                            🔍 BOTTOM MARKER - Can you see this?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-frame">
+            <h2>✅ FIXED (padding-bottom: 4rem)</h2>
+            <div class="viewport-sim" id="viewport-fixed">
+                <div class="viewport-marker" style="top: 800px;"></div>
+                <div class="content-fixed">
+                    <h1>ARKIFY</h1>
+                    <p class="tagline">∞ This image shows the decisions that created it</p>
+                    <div class="container">
+                        <img src="arkify-v4.png" alt="Arkify" class="infographic">
+                    </div>
+                    <div class="footer">
+                        <p style="background: rgba(0,255,0,0.3); padding: 10px; border-radius: 5px;">
+                            🔍 BOTTOM MARKER - Can you see this?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats" id="measurements">
+        <h3>Measurements</h3>
+        <pre id="measure-output">Loading...</pre>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const currentFrame = document.querySelector('#viewport-current .content');
+                const fixedFrame = document.querySelector('#viewport-fixed .content-fixed');
+
+                const currentImg = currentFrame.querySelector('img');
+                const fixedImg = fixedFrame.querySelector('img');
+
+                const currentFooter = currentFrame.querySelector('.footer');
+                const fixedFooter = fixedFrame.querySelector('.footer');
+
+                const currentRect = currentFooter.getBoundingClientRect();
+                const fixedRect = fixedFooter.getBoundingClientRect();
+
+                const currentImgRect = currentImg.getBoundingClientRect();
+                const fixedImgRect = fixedImg.getBoundingClientRect();
+
+                const output = `CURRENT VERSION:
+  Content height: ${currentFrame.scrollHeight}px
+  Image rendered: ${currentImgRect.width.toFixed(0)}x${currentImgRect.height.toFixed(0)}px
+  Footer top (relative to viewport): ${currentRect.top.toFixed(0)}px
+  Footer visible in viewport (800px): ${currentRect.top < 800 ? 'YES' : 'NO - ' + (currentRect.top - 800).toFixed(0) + 'px below fold'}
+
+FIXED VERSION:
+  Content height: ${fixedFrame.scrollHeight}px
+  Image rendered: ${fixedImgRect.width.toFixed(0)}x${fixedImgRect.height.toFixed(0)}px
+  Footer top (relative to viewport): ${fixedRect.top.toFixed(0)}px
+  Footer visible in viewport (800px): ${fixedRect.top < 800 ? 'YES' : 'NO - ' + (fixedRect.top - 800).toFixed(0) + 'px below fold'}
+
+IMAGE DETAILS:
+  Natural dimensions: ${currentImg.naturalWidth}x${currentImg.naturalHeight}px
+  Aspect ratio: ${(currentImg.naturalWidth / currentImg.naturalHeight).toFixed(3)} (3:4 ratio)
+
+DIAGNOSIS:
+  ${currentRect.top > 800 ? '⚠️ CURRENT version cuts off footer by ' + (currentRect.top - 800).toFixed(0) + 'px' : '✅ Footer is visible in current version'}
+  ${fixedRect.top > 800 ? '⚠️ FIXED version still cuts off footer by ' + (fixedRect.top - 800).toFixed(0) + 'px' : '✅ Footer is visible in fixed version'}`;
+
+                document.getElementById('measure-output').textContent = output;
+            }, 500);
+        });
+    </script>
+</body>
+</html>
