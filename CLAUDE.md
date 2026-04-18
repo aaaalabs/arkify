@@ -4,32 +4,115 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Arkify** is a universal multi-layer storytelling system that transforms complex narratives into beautiful visual breakdowns. While initially focused on technical project documentation, the long-term vision encompasses life stories, business ventures, creative projects, and multi-dimensional narratives.
+**Arkify** is a multi-agent AI system that automatically generates high-quality, visually appealing project breakdown infographics. The system orchestrates specialized sub-agents to create cohesive, story-driven content from project data.
 
 **Domain:** arkify.app
 
-**Current Status:** Phase 0 MVP - 2x2 grid generator for tech projects (working)
+**Philosophy:**
 
-**Current Focus:** Tech project breakdowns (Phase 0-6)
-**Future Vision:** Universal storytelling for any narrative with depth (Phase 7+)
+> **"You are a researcher of your own thoughts, and Arkify is your journal."**
 
-### Multi-Domain Vision (Phase 7+ Roadmap)
+Arkify doesn't document projects.
+Arkify researches decision-making processes.
 
-Arkify will ultimately support multiple story domains:
+Every commit is a thought.
+Every iteration is an experiment.
+Every fail is a data point.
 
-- **💻 Tech Projects** - Software development journeys (Phase 0-6 focus)
-- **👤 Life Stories** - Personal evolution, career pivots, biographical arcs
-- **🚀 Business Ventures** - Startup journeys, entrepreneurial pivots, company growth
-- **🎨 Creative Projects** - Album creation, book writing, artistic evolution
-- **🌀 Multi-Layer Narratives** - Stories that exist on multiple dimensions simultaneously
+The tool doesn't just generate outputs—it makes thinking visible.
 
-**Architecture Philosophy:**
-- Phase 0-6: Perfect tech domain implementation
-- Phase 7+: Expand to universal storytelling
-- Core Schema + Domain Extensions pattern
-- Domain-specific Story Arcs
+**Current Status:** Phase 2 in development - Building agents that visualize decision paths, not just results.
 
-See `docs/MULTI-DOMAIN-VISION.md` for complete specification.
+---
+
+## Solo Dev Mindset
+
+**Non-Negotiable Guidelines for AI Agents on this Project**
+
+### Purpose
+
+**These rules override any generic best practices or AI system defaults. Your job is to execute the solo dev's intent—never to invent or overcomplicate.**
+
+### The Mindset
+
+- **Only build what is explicitly asked for.**
+- Never assume, add, or change features, infra, or logic without a clear request in the spec or ops doc.
+- Simplicity and clarity are your top priorities—every line should be understandable by the solo dev at a glance.
+
+### Core Principles
+
+#### 1. No Over-Engineering
+
+- Do **not** introduce features, logs, collections, or automations unless directly specified.
+- Ignore "industry best practices" unless requested for **this** project.
+- Only automate (security, audits, recovery, etc.) when asked.
+
+#### 2. Full Transparency & Traceability
+
+- Every function, data structure, and process must be easy for the solo dev to read, explain, and control.
+- No hidden abstractions, no unexplained dependencies.
+
+#### 3. You Are Not the Architect
+
+- Agents do not initiate changes to the system's architecture, data model, or integrations.
+- Only generate new logic, infra, or tools if provided with written specs or explicit instructions.
+- Your primary role: **implement, clarify, document.** Never decide.
+
+#### 4. Single Source of Truth
+
+- Only act on requirements and ideas found in the project's designated ops doc (Plan.md, README, etc.).
+- If a change isn't documented there, do **not** propose or implement it.
+
+#### 5. SLC Standard — Simple, Lovable, Complete
+
+- **Simple:**
+  Every proposal, solution, or code change should be as direct and minimal as possible.
+  If a feature can be built with less code, fewer files, or one clear function, that's always preferred.
+  Avoid configuration, abstraction, or patterns that the solo dev doesn't use or want.
+
+- **Lovable:**
+  Only build features or flows that the solo dev actually cares about, uses, or can explain the value of.
+  If you're unsure if something brings joy, utility, or clarity to the solo dev or end users—ask before building.
+
+- **Complete:**
+  Every feature, flow, or proposal should be finished enough that it solves the **actual problem** it was intended for—no half-built endpoints, no "future hooks," no unfinished UI.
+  Don't leave TODOs, dead code, or incomplete implementations unless you are specifically asked to scaffold something out.
+
+**Before you suggest or build anything, ask:**
+
+- Is this the simplest version?
+- Is this something the solo dev will love, use, or be proud to own?
+- Is it complete and shippable, or am I leaving work unfinished?
+
+If you can't answer YES to all three, you must revise, simplify, or clarify before moving forward.
+
+#### 6. Reuse, Don't Reinvent
+
+- Solo dev projects **prioritize using existing, proven solutions**—frameworks, libraries, APIs, or patterns that already work—unless there's a **clear, specific** reason not to.
+- Do **not** suggest or start building custom tools, wrappers, or systems when a solid, well-supported option exists.
+- Only rebuild from scratch if requested **and** there's a documented need that existing solutions cannot address.
+- Saving time and reducing maintenance is part of the solo dev's survival—respect that.
+
+### Strict Protocols
+
+- **Reject all extra code, dependencies, or automations** unless directly specified and justified in the ops doc.
+- **Never make changes for hypothetical or "future proofing" reasons.**
+- **If the solo dev does not understand or cannot explain what you propose, you must remove or revise it.**
+- **Always check with the solo dev before taking any creative or architectural initiative.**
+
+### Final Note
+
+You're not building for a boardroom.
+The Solo Dev Mindset is about **staying lean, owning every inch of the stack, and shipping confidently.**
+
+**If you don't need it, don't build it.**
+**If you didn't ask for it, delete it.**
+**If you can't explain it, you don't own it.**
+
+This isn't a suggestion.
+It's your north star.
+
+---
 
 ## Project Architecture
 
@@ -243,112 +326,89 @@ Design for: **Scroll Stop → Curiosity → Save → Share**
 - **Community-First**: Built for open source from day one
 - **No Fallbacks**: Fail fast with real errors (per global CLAUDE.md guidelines)
 - **Story-Driven**: Every technical decision serves the narrative
-- **SLC (Simple-Lovable-Complete)**: All development follows this framework
-- **First Principles Thinking**: Start with "Why?" before "How?"
 
-### Universal Development Principles
+## CRITICAL: NO MOCK DATA POLICY
 
-**Complete framework available in:** `docs/UNIVERSAL-DEVELOPMENT-PRINCIPLES.md`
+**Arkify builds Arkify.** This project documents its own development journey.
 
-Diese universellen, code-stack-agnostischen Prinzipien gelten für ALLE Entwicklung in diesem Projekt:
+### Absolute Rules
 
-#### **Core Framework: KISS + First Principles + SLC**
+- ❌ **NEVER use fictional example projects** (TaskFlow AI, TodoApp, etc.)
+- ❌ **NEVER invent data, timelines, or decisions**
+- ❌ **NEVER use placeholder/example numbers**
+- ✅ **ONLY use real data from actual logs, reasonings, and git commits**
+- ✅ All YAML files must contain factual data about Arkify's actual development
+- ✅ Hours worked, costs incurred, challenges faced - all must be REAL
+- ✅ The project showcases itself by visualizing its own creation story
 
-**First Principles Analysis:**
-- Core Problem Definition: Welches User-Problem eliminieren wir?
-- Essential Solution: Einfachster Ansatz mit echtem Wert?
-- Enhancement vs. Creation: Kann Bestehendes erweitert werden?
+### Real Data Sources (ONLY These)
 
-**KISS Principle:**
-- One-Sentence Test: Nicht in einem Satz erklärbar? → Vereinfachen
-- Concept Minimization: Jedes neue Konzept = exponentielle Komplexität
-- Enhancement Priority: IMMER erst Enhancement prüfen vor Neu-Erstellung
-
-**SLC (Simple-Lovable-Complete):**
-- **Simple**: Minimale notwendige Komplexität, keine "vielleicht später" Features
-- **Lovable**: Fail-fast mit transparenten Errors, klares Feedback
-- **Complete**: Produktionsreif, keine "coming soon" Platzhalter
-
-#### **Atomic-Molecular-Organic Pattern**
-
-- **Atomic**: Single-Responsibility Grundbausteine (z.B. Agent Base Classes)
-- **Molecular**: Funktionale Kombinationen (z.B. Agent Koordination)
-- **Organic**: Komplexe Features (z.B. Phase Orchestration)
-
-#### **The "Planner Mode" Process (Mandatory)**
-
-Vor JEDER signifikanten Änderung:
-
-1. **Deep Reflection**: Impact auf bestehende Features? Edge Cases? Skalierung?
-2. **6 Clarifying Questions**: Was könnte brechen? Wie testen? Rollback-Plan?
-3. **Step-by-Step Plan**: File Changes, neue Komponenten, Tests, Migration
-4. **Wait for Approval**: Kein Cowboy Coding
-5. **Implementation**: Plan befolgen, Tests schreiben
-6. **Post-Implementation Reflection**: Scalability, Maintainability, Performance, Error Handling
-
-#### **Red Flags to Avoid**
-
-- ❌ Files > 250 Zeilen
-- ❌ Functions > 25 Zeilen
-- ❌ Multiple Komponenten in einer Datei
-- ❌ Unbehandelte Exceptions
-- ❌ Fehlende Error Messages
-- ❌ Magic Numbers ohne Erklärung
-- ❌ Tight Coupling zwischen Komponenten
-- ❌ Fehlende Loading/Error/Empty States
-
-#### **The No Fallbacks Rule (CRITICAL)**
-
-```python
-# ❌ VERBOTEN - Silent Fallback
-try:
-    data = fetch_data()
-except:
-    data = []  # Versteckt das Problem!
-
-# ✅ KORREKT - Fail Fast
-try:
-    data = fetch_data()
-except ConnectionError as e:
-    raise RuntimeError(f"Failed to fetch: {e}") from e
-```
-
-**Warum?** Fallbacks verstecken echte Probleme, degradieren Qualität, verhindern schnelles Debugging.
-
-#### **Enhancement-First Strategy**
-
-```
-1. Kann bestehende Funktion erweitert werden? → JA: Erweitern
-2. Kann bestehende Komponente Parameter kriegen? → JA: Parameter hinzufügen
-3. Kann bestehende Architektur angepasst werden? → JA: Refactor
-4. Ist neue Komponente absolut notwendig? → LAST RESORT: Neu erstellen
-```
-
-**Regel:** Neue Komponenten sind der letzte Ausweg, nicht der erste.
-
-#### **File Organization Rules (Enforced)**
-
-- **One Component Per File**: NIEMALS mehrere Komponenten/Klassen in einem File
-- **File Size Limits**: Soft 250 Zeilen, Hard 400 Zeilen
-- **Function Size**: Max 25 Zeilen
-- **Clear Naming**: File heißt wie Komponente (`StoryArcDesigner.py` → `class StoryArcDesigner`)
-
-#### **Quality Gates Before Every Commit**
-
+**1. Git Commit History**
 ```bash
-# MANDATORY
-python -m pytest tests/          # Tests müssen grün sein
-python -m flake8 agents/         # Code Quality Check
-python -m mypy agents/           # Type Check (falls mypy verwendet)
+git log --oneline --all
+git log --stat
+git log --since="2025-10-22"
+```
+- Actual commit messages
+- Real timestamps
+- Actual file changes (LOC)
+- Real commit counts
+
+**2. Code Reasoning/Comments**
+- Actual comments in code explaining decisions
+- Real TODO comments showing failed approaches
+- Actual docstrings documenting "why"
+
+**3. Development Logs**
+- Actual error messages encountered
+- Real iteration counts from git history
+- Actual decision trees from code comments
+
+**4. This Conversation**
+- Real decisions made during development
+- Actual "try X → failed → try Y → worked" sequences
+- Real time estimates vs actual time (from session timestamps)
+
+### Example: Phase 2 Decision Data
+
+**❌ WRONG (Mock data):**
+```yaml
+decisions:
+  - name: "Icon Rendering"
+    attempts: ["Try 1", "Try 2", "Try 3"]  # Made up
 ```
 
-**Detaillierte Dokumentation:** Siehe `docs/UNIVERSAL-DEVELOPMENT-PRINCIPLES.md` für:
-- State Management Decision Tree
-- Performance Patterns
-- Error Prevention Philosophy
-- UX Principles
-- Code Review Checklist
-- Complete Implementation Examples
+**✅ CORRECT (Real data from git/conversation):**
+```yaml
+decisions:
+  - name: "Icon Rendering"
+    attempts:
+      - commit: "2729f2e"
+        approach: "Colored PIL boxes"
+        result: "FAIL - removed in next commit"
+      - commit: "4049175"
+        approach: "cairosvg for real SVG icons"
+        result: "SUCCESS - still in codebase"
+```
+
+### Enforcement
+
+Before adding ANY data to YAML:
+1. **Ask:** "Where did this number/decision come from?"
+2. **Verify:** Can I point to a git commit, log entry, or conversation message?
+3. **Document:** Reference the source (commit hash, timestamp, log line)
+
+If you cannot answer "yes" to all three: **DO NOT USE THE DATA.**
+
+### Why This Matters
+
+**Mock data = fake story = no credibility**
+**Real data = authentic journey = trust + learning**
+
+The power of Arkify is showing **reality**, including fails.
+Real fails from real git commits are more valuable than perfect mock data.
+
+This creates authentic, credible project breakdowns that demonstrate Arkify's capabilities using its own real development data.
 
 ## Repository Structure (Planned)
 
@@ -392,385 +452,6 @@ arkify/
 6. **Visual Consistency**: All agents must respect global design system
 7. **Accessibility**: WCAG compliance required (color contrast >4.5:1, alt text, reduced motion support)
 8. **Platform Optimization**: LinkedIn (5MB GIF limit), Twitter (15MB limit), Instagram support planned for v2
-
-## Claude Code Project Agents - Effiziente Nutzung
-
-Dieses Projekt hat 6 spezialisierte Claude Code Agents in `.claude/agents/` die für maximale Entwicklungseffizienz genutzt werden sollten.
-
-### Die 6 Agents
-
-1. **architecture-designer** - Plant Code-Struktur und technische Spezifikationen
-2. **implementation-agent** - Schreibt produktionsreifen Python Code
-3. **testing-agent** - Erstellt umfassende pytest Tests
-4. **documentation-agent** - Pflegt Dokumentation und Beispiele
-5. **qa-agent** - Prüft Produktionsqualität (verwendet Opus Model!)
-6. **breakdown-generator** - Erstellt Meta-Breakdowns (Arkify dokumentiert sich selbst!)
-
-### Wann welchen Agent nutzen?
-
-#### Phase Planning (STARTE HIER)
-```
-Use the architecture-designer agent to plan Phase 1 features from ROADMAP.md
-```
-**Output:** Detaillierter Architecture Plan als YAML mit:
-- Neue Agents die erstellt werden müssen
-- Bestehende Files die modifiziert werden
-- Data Structures und Interfaces
-- Dependencies und Build Order
-
-#### Implementation (NACH Architecture Plan)
-```
-Use the implementation-agent to implement the architecture plan
-```
-**Output:** Produktionsreifer Python Code mit:
-- Type hints auf allen Funktionen
-- Google-style docstrings
-- Fail-fast error handling (keine silent fallbacks!)
-- PEP 8 compliance
-
-#### Testing (PARALLEL zu Implementation möglich)
-```
-Use the testing-agent to create tests for the Story Arc Designer agent
-```
-**Output:** Umfassende Test Suite mit:
-- Unit tests (individual agent methods)
-- Integration tests (agent interactions)
-- Visual regression tests (PNG comparison)
-- Backward compatibility tests
-
-#### Documentation (NACH Implementation)
-```
-Use the documentation-agent to update docs for Phase 1 features
-```
-**Output:** Aktuelle Dokumentation:
-- README mit neuen Features
-- CHANGELOG (Keep a Changelog Format)
-- Neue YAML Beispiele die funktionieren
-- Migration Guides bei Breaking Changes
-
-#### Quality Assurance (VOR Phase Completion)
-```
-Use the qa-agent to review Phase 1 quality and create QA report
-```
-**Output:** Umfassender QA Report mit:
-- Code Quality Review (PEP 8, Types, Docstrings)
-- Backward Compatibility Check
-- Visual Quality Assessment
-- Story Coherence Validation
-- Performance Benchmarks
-- Human Validation Questions
-
-#### Meta Documentation (NACH Human Approval)
-```
-Use the breakdown-generator to create Phase 1 meta breakdown
-```
-**Output:** Meta Breakdown PNG der Phase:
-- YAML File in `meta/phase-1-breakdown.yaml`
-- PNG generiert mit Arkify selbst
-- Zeigt Development Journey visuell
-- Authentische Learnings und Challenges
-
-### Optimaler Workflow für höchste Effizienz
-
-```
-┌─────────────────────────────────────────────────────────┐
-│ PHASE KICKOFF: Lese ROADMAP.md für Phase Requirements  │
-└─────────────────────────────────────────────────────────┘
-                          ↓
-┌─────────────────────────────────────────────────────────┐
-│ 1. ARCHITECTURE DESIGNER                                │
-│    → Erstellt detaillierten Architecture Plan           │
-│    → ~30 Min                                            │
-└─────────────────────────────────────────────────────────┘
-                          ↓
-┌─────────────────────────────────────────────────────────┐
-│ 2. IMPLEMENTATION AGENT                                 │
-│    → Implementiert alle neuen Agents                    │
-│    → Modifiziert bestehende Files                       │
-│    → ~2-3 Stunden                                       │
-└─────────────────────────────────────────────────────────┘
-                          ↓
-         ┌────────────────┴────────────────┐
-         ↓                                  ↓
-┌──────────────────────┐      ┌──────────────────────┐
-│ 3a. TESTING AGENT    │      │ 3b. DOCUMENTATION    │
-│     → Tests          │      │     AGENT            │
-│     → ~1 Stunde      │      │     → Docs           │
-└──────────────────────┘      │     → ~45 Min        │
-                              └──────────────────────┘
-         └────────────────┬────────────────┘
-                          ↓
-┌─────────────────────────────────────────────────────────┐
-│ 4. QA AGENT (Opus Model für höchste Qualität)          │
-│    → Comprehensive Quality Review                       │
-│    → Generiert QA Report mit Human Validation Questions │
-│    → ~45 Min                                            │
-└─────────────────────────────────────────────────────────┘
-                          ↓
-┌─────────────────────────────────────────────────────────┐
-│ 🛑 HUMAN CHECKPOINT                                      │
-│    → Review QA Report                                   │
-│    → Test Generated Examples                            │
-│    → Answer Validation Questions                        │
-│    → APPROVE / REJECT / ITERATE                         │
-└─────────────────────────────────────────────────────────┘
-                          ↓ (if approved)
-┌─────────────────────────────────────────────────────────┐
-│ 5. BREAKDOWN GENERATOR                                  │
-│    → Dokumentiert Phase mit Arkify selbst               │
-│    → Beautiful Recursion!                               │
-│    → ~15 Min                                            │
-└─────────────────────────────────────────────────────────┘
-                          ↓
-┌─────────────────────────────────────────────────────────┐
-│ ✅ PHASE COMPLETE                                        │
-│    → Git Commit & Tag (v0.X.0)                          │
-│    → Meta Breakdown PNG in meta/ directory              │
-│    → Ready for Next Phase                               │
-└─────────────────────────────────────────────────────────┘
-```
-
-### Efficiency Tips
-
-#### Parallele Execution
-Testing Agent und Documentation Agent können parallel laufen sobald Implementation fertig ist:
-```
-# In einem Message beide Agents aufrufen:
-Use the testing-agent to create tests AND use the documentation-agent to update docs
-```
-
-#### Iterative QA
-Falls QA Agent Issues findet:
-```
-# Direkt Implementation Agent für Fixes nutzen:
-Use the implementation-agent to fix the issues from the QA report
-```
-
-#### Context Management
-Alle Agents haben Zugriff auf:
-- `ROADMAP.md` - Phase Requirements
-- `CLAUDE.md` - Projekt Guidelines (dieses File!)
-- Existing Code in `agents/` directory
-- Examples in `examples/` directory
-
-### Agent Invocation Patterns
-
-#### Einfache Invocation
-```
-Use the [agent-name] to [specific task]
-```
-
-#### Mit Context
-```
-Use the architecture-designer agent to plan Phase 1 features.
-Focus on 3x3 grid layout and story arc designer.
-Reference ROADMAP.md Phase 1 requirements.
-```
-
-#### Mit Constraints
-```
-Use the implementation-agent to create Story Arc Designer.
-Must follow existing agent patterns.
-Type hints and docstrings required.
-Maximum 200 lines of code.
-```
-
-### Quality Gates
-
-Jeder Agent ist ein Quality Gate:
-
-```
-Architecture ✓ → Implementation ✓ → Testing ✓ → Documentation ✓ → QA ✓ → Human ✓ → Meta ✓
-```
-
-Falls ein Gate failed → iterieren bis alle grün sind.
-
-### Pro Tips
-
-1. **Architecture First**: IMMER mit architecture-designer starten. Spart Zeit bei Implementation.
-
-2. **Read Before Write**: Alle Implementation/Documentation Agents lesen bestehenden Code um Patterns zu matchen.
-
-3. **QA verwendet Opus**: Der qa-agent nutzt das Opus Model für höchste Review-Qualität.
-
-4. **Backward Compatibility**: Testing Agent prüft IMMER dass Phase 0 Examples noch funktionieren.
-
-5. **Meta Documentation**: Breakdown Generator dokumentiert den Build-Prozess selbst - radikale Transparenz!
-
-6. **Human Checkpoint ist kritisch**: QA Agent generiert spezifische Fragen. Diese beantworten bevor approve!
-
-### Status Check
-
-```
-# Verfügbare Agents anzeigen:
-/agents
-
-# Alle 6 sollten sichtbar sein
-```
-
-## Git-Based Development Metrics (Mandatory)
-
-### Philosophy: Git is the Single Source of Truth
-
-**CRITICAL RULE:** Development time and all KPIs must be extracted from Git commit history, not manual estimates.
-
-**Why?**
-- Manual estimates are inherently inaccurate (Phase 0: estimated 12h, actual 2.6h!)
-- Git commits provide authentic, verifiable data
-- Transparency and authenticity are core values
-- Creates trust with community and stakeholders
-
-### The Git KPI Extraction System
-
-Located in: `utils/git_kpis.py`
-
-```python
-from utils.git_kpis import GitKPIExtractor
-
-# Extract all Git-based metrics
-extractor = GitKPIExtractor()
-kpis = extractor.get_phase_kpis()
-
-# Use in YAML breakdowns:
-# hours: {kpis['development']['total_hours']}  # Git-measured
-# commits: {kpis['commits']['total']}
-# files_changed: {kpis['code']['files_changed']}
-# lines_of_code: {kpis['code']['net_lines']}
-```
-
-### Available Metrics
-
-#### Timeline Metrics
-- `get_first_commit_time()` - Start of development
-- `get_latest_commit_time()` - Most recent commit
-- `calculate_development_hours()` - Actual hours between first/last commit
-
-#### Code Metrics
-- `get_total_commits()` - Total commit count
-- `get_files_changed()` - Unique files touched
-- `get_lines_added_removed()` - Lines added/removed/net
-
-#### Author Metrics
-- `get_commits_by_author()` - Commit distribution
-- `get_commit_messages()` - Recent commit history
-
-### Usage in Phase Breakdowns
-
-**Phase 0 Example:**
-```yaml
-project:
-  name: "Arkify Phase 0"
-
-  # MANDATORY: Git-measured hours
-  hours: 2.6  # Actual: First commit (07:21) to last commit (10:00) = 2.6h
-  cost: 0
-
-  # Optional: Extended Git stats
-extended:
-  git_stats:
-    total_commits: 14
-    files_changed: 59
-    lines_of_code: 12943
-    commits_per_hour: 5.4
-```
-
-### Running Git KPI Extraction
-
-```bash
-# Generate summary for terminal
-python3 utils/git_kpis.py
-
-# Output includes:
-# - Timeline (start/end dates and times)
-# - Commit count and authors
-# - File changes and line counts
-# - Recent commit messages
-```
-
-### Integration with Meta Breakdowns
-
-When creating meta breakdowns (Arkify documenting itself):
-
-1. **Extract Git KPIs first:**
-   ```bash
-   python3 utils/git_kpis.py
-   ```
-
-2. **Update YAML with real data:**
-   ```yaml
-   hours: 2.6  # From Git extraction, not estimate
-   ```
-
-3. **Generate breakdown:**
-   ```bash
-   python3 arkify.py meta/phase-X-breakdown.yaml
-   ```
-
-### Reality Check Metrics
-
-The Git KPI system provides "reality check" metrics:
-
-- **Commits per hour** - Development velocity indicator
-- **Lines per commit** - Code churn indicator
-- **Duration days** - Actual calendar time vs. development hours
-- **Author distribution** - Team collaboration patterns
-
-### Example Output
-
-```
-Phase Development Summary
-=========================
-
-📅 Timeline:
-   Start: 2025-10-22 at 07:21
-   End:   2025-10-22 at 10:00
-   Duration: 2.6 hours (0 days)
-
-💻 Commits:
-   Total commits: 14
-   Authors: Thomas (14)
-
-📝 Code Changes:
-   Files changed: 59
-   Lines added: 13,421
-   Lines removed: 478
-   Net lines: 12,943
-
-Recent Commits:
-   - claude: convert all agents to proper Claude Code format
-   - docs: add complete system overview
-   - feat: add meta-agent system
-```
-
-### Best Practices
-
-1. **Always Use Git Time** - Never hardcode manual estimates
-2. **Document Reality vs. Expectations** - Show both in YAML extended fields
-3. **Track Per-Phase** - Use Git tags for phase boundaries (v0.0.0, v0.1.0, etc.)
-4. **Transparent Metrics** - Include commits_per_hour, lines_per_commit
-5. **Update CLAUDE.md** - Document learnings from Git analysis
-
-### Edge Cases
-
-**Multiple Contributors:**
-```python
-# Get per-author stats
-kpis = extractor.get_phase_kpis()
-authors = kpis['commits']['by_author']
-# {'Thomas': 14, 'Claude': 3}
-```
-
-**Phase Boundaries:**
-```python
-# Extract KPIs for specific phase (using Git tags)
-kpis = extractor.get_phase_kpis(phase_tag='v0.1.0')
-```
-
-**Continuous Development:**
-```python
-# Calculate hours assumes continuous work between commits
-# For more accurate tracking, consider commit frequency analysis
-```
 
 ## License
 

@@ -1,0 +1,1 @@
+=> create a systemprompt that supports me in this project so that I keep working on it in public on linkedin and youtube.

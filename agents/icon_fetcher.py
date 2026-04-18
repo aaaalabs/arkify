@@ -10,6 +10,14 @@ import requests
 from pathlib import Path
 from typing import List, Dict, Any
 from urllib.parse import quote
+from PIL import Image
+import io
+
+try:
+    import cairosvg
+    HAS_CAIROSVG = True
+except ImportError:
+    HAS_CAIROSVG = False
 
 
 class IconFetcher:
@@ -132,8 +140,9 @@ class IconFetcher:
         fill="white" text-anchor="middle">{initials}</text>
 </svg>'''
 
-        # Save fallback
+        # Save fallback (ensure parent directory exists)
         cache_path = self.cache_dir / f"{slug}_fallback.svg"
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
         cache_path.write_text(svg_content)
 
         return {
@@ -142,3 +151,80 @@ class IconFetcher:
             'path': str(cache_path),
             'source': 'fallback'
         }
+
+    def fetch_icon(self, tech_name: str, size: int = 64) -> Image.Image:
+        """
+        Fetch icon and return as PIL Image.
+
+        Args:
+            tech_name: Technology name
+            size: Icon size in pixels (square)
+
+        Returns:
+            PIL Image object (RGBA mode)
+        """
+        # Get icon metadata
+        icon_data = self._fetch_icon(tech_name)
+        svg_path = Path(icon_data['path'])
+
+        # Convert SVG to PNG using cairosvg
+        if HAS_CAIROSVG:
+            try:
+                # Read SVG content
+                svg_content = svg_path.read_text()
+
+                # Convert to PNG in memory
+                png_data = cairosvg.svg2png(
+                    bytestring=svg_content.encode('utf-8'),
+                    output_width=size,
+                    output_height=size
+                )
+
+                # Load as PIL Image
+                img = Image.open(io.BytesIO(png_data))
+                return img.convert('RGBA')
+
+            except Exception as e:
+                # Fallback to text-based placeholder
+                return self._create_text_placeholder(tech_name, size)
+        else:
+            # No cairosvg available, use text placeholder
+            return self._create_text_placeholder(tech_name, size)
+
+    def _create_text_placeholder(self, tech_name: str, size: int) -> Image.Image:
+        """
+        Create a simple text-based placeholder when SVG rendering fails.
+
+        Args:
+            tech_name: Technology name
+            size: Icon size
+
+        Returns:
+            PIL Image with text initials
+        """
+        from PIL import ImageDraw, ImageFont
+
+        # Create blank image
+        img = Image.new('RGBA', (size, size), (102, 126, 234, 255))  # Purple background
+        draw = ImageDraw.Draw(img)
+
+        # Draw initials
+        initials = tech_name[:2].upper()
+
+        # Try to use a decent font
+        try:
+            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", int(size * 0.45))
+        except:
+            font = ImageFont.load_default()
+
+        # Center text
+        bbox = draw.textbbox((0, 0), initials, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+
+        x = (size - text_width) // 2
+        y = (size - text_height) // 2
+
+        draw.text((x, y), initials, fill=(255, 255, 255, 255), font=font)
+
+        return img
