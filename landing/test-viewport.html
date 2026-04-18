@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkify Viewport Test</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0F0F1E;
+            color: #00D9FF;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00D9FF, #FF0080);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .tagline {
+            font-size: 1.1rem;
+            color: #9D4EDD;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            border: 2px solid yellow; /* Debug border */
+        }
+        .infographic {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+            display: block;
+        }
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #8E8E93;
+            font-size: 0.9rem;
+        }
+        a { color: #00D9FF; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Debug info */
+        .debug {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #0F0;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 1000;
+            border: 1px solid #0F0;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug" id="debug">
+        Viewport: <span id="viewport"></span><br>
+        Body Height: <span id="bodyHeight"></span><br>
+        Image Height: <span id="imageHeight"></span><br>
+        Image Natural: <span id="imageNatural"></span><br>
+        Scroll Height: <span id="scrollHeight"></span>
+    </div>
+
+    <h1>ARKIFY</h1>
+    <p class="tagline">∞ This image shows the decisions that created it</p>
+    <div class="container">
+        <img src="arkify-v4.png" alt="Arkify Meta-Recursive Data Visualization" class="infographic" id="infographic">
+    </div>
+    <div class="footer">
+        <p>Your mistakes ARE your research | <a href="https://github.com/aaaalabs/arkify">GitHub</a></p>
+    </div>
+
+    <script>
+        function updateDebug() {
+            const img = document.getElementById('infographic');
+            const viewport = `${window.innerWidth}x${window.innerHeight}`;
+            const bodyHeight = document.body.scrollHeight;
+            const imageHeight = img.offsetHeight;
+            const imageNatural = `${img.naturalWidth}x${img.naturalHeight}`;
+            const scrollHeight = document.documentElement.scrollHeight;
+
+            document.getElementById('viewport').textContent = viewport;
+            document.getElementById('bodyHeight').textContent = bodyHeight + 'px';
+            document.getElementById('imageHeight').textContent = imageHeight + 'px';
+            document.getElementById('imageNatural').textContent = imageNatural;
+            document.getElementById('scrollHeight').textContent = scrollHeight + 'px';
+        }
+
+        window.addEventListener('load', updateDebug);
+        window.addEventListener('resize', updateDebug);
+
+        // Check if bottom of image is visible
+        window.addEventListener('load', () => {
+            const img = document.getElementById('infographic');
+            const rect = img.getBoundingClientRect();
+            const bottomVisible = rect.bottom <= window.innerHeight;
+
+            console.log('Image dimensions:', img.naturalWidth, 'x', img.naturalHeight);
+            console.log('Image displayed size:', img.offsetWidth, 'x', img.offsetHeight);
+            console.log('Image bottom position:', rect.bottom);
+            console.log('Viewport height:', window.innerHeight);
+            console.log('Bottom visible without scroll:', bottomVisible);
+
+            if (!bottomVisible) {
+                console.warn('⚠️ Image bottom is NOT visible - user must scroll to see all content');
+                console.log('Scroll amount needed:', rect.bottom - window.innerHeight, 'px');
+            } else {
+                console.log('✅ Entire image is visible without scrolling');
+            }
+        });
+    </script>
+</body>
+</html>

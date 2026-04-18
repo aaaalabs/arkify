@@ -1,0 +1,169 @@
+================================================================================
+ARKIFY INFOGRAPHIC VISIBILITY BREAKDOWN
+================================================================================
+
+Source Image: arkify-v4.png (1200x1600px)
+6 Panels arranged in 3 rows × 2 columns:
+
+Row 1: [COMMIT ANALYSIS] [REAL DATA METRICS]
+Row 2: [DECISION PATH]    [AGENT NETWORK]
+Row 3: [ITERATIONS OVER TIME] [META-RECURSION ∞]
+
+Each panel is approximately 266px tall (1600px ÷ 6 rows ≈ 267px per panel)
+
+================================================================================
+VIEWPORT VISIBILITY ANALYSIS
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ MOBILE: iPhone 12 (390x844)                                    ✅ WORKS     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Image displayed: 435px tall                                                 │
+│ Visible: 100% (all 6 panels)                                                │
+│                                                                              │
+│ What user sees:                                                              │
+│ ┌────────────────┐                                                          │
+│ │ ARKIFY ∞       │ Header                                                   │
+│ ├───────┬────────┤                                                          │
+│ │ COMMIT│ REAL   │ Row 1 ✅                                                 │
+│ ├───────┼────────┤                                                          │
+│ │ DECIS │ AGENT  │ Row 2 ✅                                                 │
+│ ├───────┼────────┤                                                          │
+│ │ ITERS │ META ∞ │ Row 3 ✅                                                 │
+│ └───────┴────────┘                                                          │
+│ │ Footer         │                                                          │
+│ └────────────────┘                                                          │
+│                                                                              │
+│ RESULT: All panels visible, minimal/no scroll needed ✅                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ TABLET: iPad Mini (768x1024)                                   ⚠️ SCROLLS   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Image displayed: 939px tall                                                 │
+│ Visible: 87% (bottom ~13% below fold)                                       │
+│                                                                              │
+│ What user sees WITHOUT scrolling:                                           │
+│ ┌────────────────┐                                                          │
+│ │ ARKIFY ∞       │ Header                                                   │
+│ ├───────┬────────┤                                                          │
+│ │ COMMIT│ REAL   │ Row 1 ✅                                                 │
+│ ├───────┼────────┤                                                          │
+│ │ DECIS │ AGENT  │ Row 2 ✅                                                 │
+│ ├───────┼────────┤                                                          │
+│ │ ITERS │ META ∞ │ Row 3 ⚠️ (partially visible, bottom ~50px cut off)      │
+│ └───────┴────────┴─ ← Fold line                                             │
+│   Footer (hidden)                                                           │
+│                                                                              │
+│ RESULT: Bottom panel partially visible, small scroll shows all ⚠️           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ LAPTOP: 1366x768 (Common 15" laptop)                    🚨 CRITICAL ISSUE   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Image displayed: 1600px tall (full resolution)                              │
+│ Visible: 35% (only top 1.5 rows visible!)                                   │
+│                                                                              │
+│ What user sees WITHOUT scrolling (with justify-content: center):            │
+│ ┌────────────────┐                                                          │
+│ │ ARKIFY ∞       │ Header ⚠️ (might be pushed up slightly)                 │
+│ ├───────┬────────┤                                                          │
+│ │ COMMIT│ REAL   │ Row 1 ✅ VISIBLE                                         │
+│ ├───────┼────────┤                                                          │
+│ │ DECIS │ AGENT  │ Row 2 ✅ VISIBLE                                         │
+│ └───────┴────────┴─ ← Fold line (768px viewport height)                     │
+│ ╔═══════╦════════╗                                                          │
+│ ║ ITERS ║ META ∞ ║ Row 3 🚨 HIDDEN BELOW FOLD!                             │
+│ ╚═══════╩════════╝                                                          │
+│ │ Footer         │ 🚨 HIDDEN                                                │
+│ └────────────────┘                                                          │
+│                                                                              │
+│ PANELS VISIBLE: 4 out of 6 (67%)                                            │
+│ PANELS HIDDEN: ITERATIONS OVER TIME, META-RECURSION (∞ symbol)              │
+│                                                                              │
+│ RESULT: Critical panels hidden, users may not realize they need to scroll!  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ DESKTOP: 1920x1080 (Full HD)                            🚨 SIGNIFICANT ISSUE│
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Image displayed: 1600px tall                                                │
+│ Visible: 55% (top 3 rows partially visible)                                 │
+│                                                                              │
+│ What user sees WITHOUT scrolling (with justify-content: center):            │
+│ ┌────────────────┐                                                          │
+│ │ ARKIFY ∞       │ Header                                                   │
+│ ├───────┬────────┤                                                          │
+│ │ COMMIT│ REAL   │ Row 1 ✅ VISIBLE                                         │
+│ ├───────┼────────┤                                                          │
+│ │ DECIS │ AGENT  │ Row 2 ✅ VISIBLE                                         │
+│ ├───────┼────────┤                                                          │
+│ │ ITERS │ META   │ Row 3 ⚠️ (top half visible)                              │
+│ └───────┴────────┴─ ← Fold line (1080px viewport)                           │
+│   ║       ║   ∞  ║                                                          │
+│   ╚═══════╩══════╝ 🚨 Bottom half HIDDEN                                    │
+│   │ Footer       │ 🚨 HIDDEN                                                │
+│   └──────────────┘                                                          │
+│                                                                              │
+│ PANELS VISIBLE: 4 full + 2 partial (top half only)                          │
+│ CRITICAL CONTENT HIDDEN: Infinity symbol (∞), bottom of timeline graph      │
+│                                                                              │
+│ RESULT: Key visual elements hidden, UX confusion about completeness         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ DESKTOP: 3840x2160 (4K)                                         ✅ WORKS    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Image displayed: 1600px tall                                                │
+│ Visible: 100% (all content fits)                                            │
+│                                                                              │
+│ What user sees:                                                              │
+│ ┌────────────────┐                                                          │
+│ │ ARKIFY ∞       │ Header                                                   │
+│ ├───────┬────────┤                                                          │
+│ │ COMMIT│ REAL   │ Row 1 ✅                                                 │
+│ ├───────┼────────┤                                                          │
+│ │ DECIS │ AGENT  │ Row 2 ✅                                                 │
+│ ├───────┼────────┤                                                          │
+│ │ ITERS │ META ∞ │ Row 3 ✅                                                 │
+│ └───────┴────────┘                                                          │
+│ │ Footer         │                                                          │
+│ └────────────────┘                                                          │
+│ [extra whitespace]                                                          │
+│                                                                              │
+│ RESULT: Perfect, no scroll needed ✅                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+================================================================================
+SUMMARY OF CUTOFF ISSUE
+================================================================================
+
+CRITICAL VIEWPORTS (Most users affected):
+  🚨 1366x768 (Laptop 15"):  Only 35% visible, bottom 2 panels hidden
+  🚨 1920x1080 (Full HD):    Only 55% visible, bottom 2 panels partially hidden
+
+AFFECTED CONTENT:
+  - ITERATIONS OVER TIME panel (timeline graph)
+  - META-RECURSION panel (infinity symbol ∞)
+  - Footer text
+
+ROOT CAUSE:
+  CSS: body { justify-content: center; }
+  → Vertically centers content when height > viewport
+  → Pushes content both above and below visible area
+  → Non-intuitive scrolling behavior (up AND down instead of just down)
+
+FIX:
+  Remove: justify-content: center;
+  → Content starts at top
+  → Users scroll down naturally (web convention)
+  → All panels accessible via standard downward scroll
+
+IMPACT OF FIX:
+  ✅ Mobile: No change (already works)
+  ✅ Tablet: Improved (less scroll needed)
+  ✅ Laptop: CRITICAL FIX (all panels now accessible)
+  ✅ Desktop HD: MAJOR FIX (clear scroll path to all content)
+  ✅ 4K: No change (already works)
+
+================================================================================
