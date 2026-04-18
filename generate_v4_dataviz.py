@@ -209,19 +209,19 @@ def draw_decision_tree_visual(draw, x, y, width, height):
 
 def draw_header(draw):
     """Draw modern header with graphics"""
-    # Title
+    # Title - focus on meta-recursion
     draw.text((60, 50),
-             "BUILT WITH CLAUDE 4.7",
-             fill=ELECTRIC_BLUE, font=get_font(56, bold=True))
+             "ARKIFY",
+             fill=ELECTRIC_BLUE, font=get_font(72, bold=True))
 
     # Infinity symbol
-    draw.text((60, 120),
+    draw.text((60, 140),
              "∞",
              fill=NEON_PINK, font=get_font(64, bold=True))
 
-    draw.text((140, 135),
-             "META-RECURSION ACHIEVED",
-             fill=WHITE, font=get_font(28))
+    draw.text((140, 155),
+             "This image shows the decisions that created it",
+             fill=WHITE, font=get_font(24))
 
     # Decorative line
     draw.rectangle([(60, 200), (WIDTH - 60, 204)],
