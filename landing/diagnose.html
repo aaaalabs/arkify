@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkify Diagnostic</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0F0F1E;
+            color: #00D9FF;
+            font-family: monospace;
+            padding: 2rem;
+        }
+        .diagnostic {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid #00D9FF;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 14px;
+        }
+        .diagnostic h3 {
+            color: #FF0080;
+            margin-bottom: 0.5rem;
+        }
+        .diagnostic pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            color: #00FF00;
+        }
+        .infographic-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        .infographic {
+            width: 100%;
+            border: 3px solid #FF0080;
+            display: block;
+        }
+        .measurement {
+            position: absolute;
+            background: rgba(255, 0, 128, 0.9);
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 2rem; color: #FF0080;">ARKIFY DIAGNOSTIC</h1>
+
+    <div class="diagnostic">
+        <h3>Window Dimensions</h3>
+        <pre id="window-dims"></pre>
+    </div>
+
+    <div class="diagnostic">
+        <h3>Body Element Styles</h3>
+        <pre id="body-styles"></pre>
+    </div>
+
+    <div class="diagnostic">
+        <h3>Image Natural Dimensions</h3>
+        <pre id="image-dims"></pre>
+    </div>
+
+    <div class="diagnostic">
+        <h3>Image Rendered Dimensions</h3>
+        <pre id="image-rendered"></pre>
+    </div>
+
+    <div class="diagnostic">
+        <h3>Scroll Info</h3>
+        <pre id="scroll-info"></pre>
+    </div>
+
+    <div class="diagnostic">
+        <h3>Computed Height Issues</h3>
+        <pre id="height-issues"></pre>
+    </div>
+
+    <div class="infographic-container">
+        <img src="arkify-v4.png" alt="Arkify" class="infographic" id="infographic">
+        <div class="measurement" style="top: 0; left: 0;">TOP</div>
+        <div class="measurement" style="bottom: 0; right: 0;">BOTTOM</div>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            const img = document.getElementById('infographic');
+
+            // Window dimensions
+            document.getElementById('window-dims').textContent =
+                `Window Inner: ${window.innerWidth}x${window.innerHeight}\n` +
+                `Document Client: ${document.documentElement.clientWidth}x${document.documentElement.clientHeight}\n` +
+                `Viewport: ${window.visualViewport?.width || 'N/A'}x${window.visualViewport?.height || 'N/A'}`;
+
+            // Body styles
+            const bodyStyles = window.getComputedStyle(document.body);
+            document.getElementById('body-styles').textContent =
+                `height: ${bodyStyles.height}\n` +
+                `min-height: ${bodyStyles.minHeight}\n` +
+                `max-height: ${bodyStyles.maxHeight}\n` +
+                `overflow: ${bodyStyles.overflow}\n` +
+                `overflow-y: ${bodyStyles.overflowY}\n` +
+                `display: ${bodyStyles.display}\n` +
+                `flex-direction: ${bodyStyles.flexDirection}`;
+
+            // Image natural dimensions
+            document.getElementById('image-dims').textContent =
+                `Natural: ${img.naturalWidth}x${img.naturalHeight}\n` +
+                `Aspect Ratio: ${(img.naturalWidth / img.naturalHeight).toFixed(3)}`;
+
+            // Image rendered dimensions
+            const imgRect = img.getBoundingClientRect();
+            document.getElementById('image-rendered').textContent =
+                `Rendered: ${imgRect.width.toFixed(0)}x${imgRect.height.toFixed(0)}\n` +
+                `Top: ${imgRect.top.toFixed(0)}px\n` +
+                `Bottom: ${imgRect.bottom.toFixed(0)}px\n` +
+                `Left: ${imgRect.left.toFixed(0)}px\n` +
+                `Right: ${imgRect.right.toFixed(0)}px\n` +
+                `InViewport: ${imgRect.bottom <= window.innerHeight ? 'YES' : 'NO - ' + (imgRect.bottom - window.innerHeight).toFixed(0) + 'px cut off'}`;
+
+            // Scroll info
+            document.getElementById('scroll-info').textContent =
+                `scrollHeight: ${document.documentElement.scrollHeight}\n` +
+                `scrollY: ${window.scrollY}\n` +
+                `clientHeight: ${document.documentElement.clientHeight}\n` +
+                `Can scroll: ${document.documentElement.scrollHeight > document.documentElement.clientHeight ? 'YES' : 'NO'}\n` +
+                `Max scroll: ${document.documentElement.scrollHeight - document.documentElement.clientHeight}px`;
+
+            // Height issues detection
+            let issues = [];
+            const bodyHeight = parseInt(bodyStyles.height);
+            const docHeight = document.documentElement.scrollHeight;
+            const imgBottom = imgRect.bottom;
+
+            if (imgBottom > window.innerHeight) {
+                issues.push(`⚠️ Image extends ${(imgBottom - window.innerHeight).toFixed(0)}px below viewport`);
+            }
+            if (bodyHeight < imgBottom) {
+                issues.push(`⚠️ Body height (${bodyHeight}px) < Image bottom (${imgBottom.toFixed(0)}px)`);
+            }
+            if (bodyStyles.minHeight === '100vh') {
+                issues.push(`⚠️ Body has min-height: 100vh - may constrain content`);
+            }
+            if (bodyStyles.overflow === 'hidden' || bodyStyles.overflowY === 'hidden') {
+                issues.push(`🔴 FOUND IT: overflow:hidden on body element!`);
+            }
+
+            document.getElementById('height-issues').textContent =
+                issues.length > 0 ? issues.join('\n') : '✅ No obvious height issues detected';
+
+            // Auto-scroll test
+            setTimeout(() => {
+                window.scrollTo(0, document.documentElement.scrollHeight);
+                setTimeout(() => {
+                    const finalScrollY = window.scrollY;
+                    const scrollInfo = document.getElementById('scroll-info');
+                    scrollInfo.textContent += `\n\n[AUTO-SCROLL TEST]\nScrolled to: ${finalScrollY}px\nTarget was: ${document.documentElement.scrollHeight}px\nReached bottom: ${finalScrollY + window.innerHeight >= document.documentElement.scrollHeight ? 'YES' : 'NO'}`;
+                }, 100);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
