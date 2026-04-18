@@ -456,8 +456,9 @@ class Claude47MetaInfographicV2:
     def _get_font(self, size):
         """Load font with fallback"""
         try:
-            return ImageFont.truetype('/System/Library/Fonts/SFNSDisplay.ttf', size)
-        except:
+            return ImageFont.truetype('/System/Library/Fonts/SFNS.ttf', size)
+        except Exception as e:
+            print(f"Warning: Could not load SFNS.ttf (size {size}): {e}")
             return ImageFont.load_default()
 
     def _hex_to_rgb(self, hex_color):
